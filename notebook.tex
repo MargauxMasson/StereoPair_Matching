@@ -1,0 +1,2345 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{HW2\_part1\_get\_des}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \hypertarget{hw2-solution-part-1}{%
+\subsection{HW2 Solution Part 1}\label{hw2-solution-part-1}}
+
+\textbf{step1}: get keypoints for each images
+
+\textbf{step2}: get patches for each keypoints
+
+\textbf{step3}: get descriptions for each keypoints (by forward pass
+patches to the network)
+
+step4: caculate the similarity matrices
+
+step5: get topK similar images for each query
+
+step6: draw recall vs precision curves
+
+\begin{center}\rule{0.5\linewidth}{\linethickness}\end{center}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{n}{os}\PY{o}{.}\PY{n}{environ}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CUDA\PYZus{}VISIBLE\PYZus{}DEVICES}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{1}\PY{l+s+s2}{\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{c+c1}{\PYZsh{} load packages}
+        \PY{k+kn}{from} \PY{n+nn}{\PYZus{}\PYZus{}future\PYZus{}\PYZus{}} \PY{k}{import} \PY{n}{division}\PY{p}{,} \PY{n}{print\PYZus{}function}
+        \PY{k+kn}{import} \PY{n+nn}{glob}
+        \PY{k+kn}{import} \PY{n+nn}{os}
+        \PY{k+kn}{import} \PY{n+nn}{cv2}
+        \PY{k+kn}{import} \PY{n+nn}{PIL}
+        \PY{k+kn}{import} \PY{n+nn}{random}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{c+c1}{\PYZsh{} import pandas as pd}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{image} \PY{k}{as} \PY{n+nn}{mpimg}
+        \PY{k+kn}{import} \PY{n+nn}{torch}
+        \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{nn}\PY{n+nn}{.}\PY{n+nn}{init}
+        \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{nn} \PY{k}{as} \PY{n+nn}{nn}
+        \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{optim} \PY{k}{as} \PY{n+nn}{optim}
+        \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{backends}\PY{n+nn}{.}\PY{n+nn}{cudnn} \PY{k}{as} \PY{n+nn}{cudnn}
+        \PY{k+kn}{import} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{nn}\PY{n+nn}{.}\PY{n+nn}{functional} \PY{k}{as} \PY{n+nn}{F}
+        \PY{k+kn}{import} \PY{n+nn}{torchvision}\PY{n+nn}{.}\PY{n+nn}{datasets} \PY{k}{as} \PY{n+nn}{dset}
+        \PY{k+kn}{import} \PY{n+nn}{torchvision}\PY{n+nn}{.}\PY{n+nn}{transforms} \PY{k}{as} \PY{n+nn}{transforms}
+        \PY{k+kn}{from} \PY{n+nn}{tqdm} \PY{k}{import} \PY{n}{tqdm}
+        \PY{k+kn}{from} \PY{n+nn}{torch}\PY{n+nn}{.}\PY{n+nn}{autograd} \PY{k}{import} \PY{n}{Variable}
+        \PY{k+kn}{from} \PY{n+nn}{copy} \PY{k}{import} \PY{n}{deepcopy}\PY{p}{,} \PY{n}{copy}
+        \PY{k+kn}{from} \PY{n+nn}{Utils} \PY{k}{import} \PY{n}{cv2\PYZus{}scale36}\PY{p}{,} \PY{n}{cv2\PYZus{}scale}\PY{p}{,} \PY{n}{np\PYZus{}reshape}\PY{p}{,} \PY{n}{np\PYZus{}reshape64}
+        \PY{k+kn}{from} \PY{n+nn}{scipy}\PY{n+nn}{.}\PY{n+nn}{optimize} \PY{k}{import} \PY{n}{linear\PYZus{}sum\PYZus{}assignment}
+        \PY{n}{np}\PY{o}{.}\PY{n}{set\PYZus{}printoptions}\PY{p}{(}\PY{n}{suppress}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{compute-the-fundamental-matrix-f-for-the-manually-selected-keypoints}{%
+\section{Compute the fundamental matrix F for the manually selected
+keypoints}\label{compute-the-fundamental-matrix-f-for-the-manually-selected-keypoints}}
+
+    First, generation of the C0 matrices for each pairs
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{c+c1}{\PYZsh{} Image 11 and 12}
+         \PY{n}{x11} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{143}\PY{p}{,} \PY{l+m+mi}{232}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{400}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{59}\PY{p}{,} \PY{l+m+mi}{480}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{167}\PY{p}{,} \PY{l+m+mi}{500}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{363}\PY{p}{,} \PY{l+m+mi}{569}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{597}\PY{p}{,} \PY{l+m+mi}{411}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                 \PY{p}{[}\PY{l+m+mi}{447}\PY{p}{,} \PY{l+m+mi}{641}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{879}\PY{p}{,} \PY{l+m+mi}{50}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{781}\PY{p}{,} \PY{l+m+mi}{528}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{779}\PY{p}{,} \PY{l+m+mi}{636}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+         \PY{n}{x12} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{179}\PY{p}{,} \PY{l+m+mi}{236}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{59}\PY{p}{,} \PY{l+m+mi}{400}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{97}\PY{p}{,} \PY{l+m+mi}{480}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{195}\PY{p}{,} \PY{l+m+mi}{498}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{380}\PY{p}{,} \PY{l+m+mi}{571}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{609}\PY{p}{,} \PY{l+m+mi}{413}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                 \PY{p}{[}\PY{l+m+mi}{461}\PY{p}{,} \PY{l+m+mi}{643}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{892}\PY{p}{,} \PY{l+m+mi}{49}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{782}\PY{p}{,} \PY{l+m+mi}{530}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{779}\PY{p}{,} \PY{l+m+mi}{638}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+         
+         \PY{n}{C01} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{]}
+         \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{C01}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{x11}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{x12}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Image 21 and 22}
+         
+         \PY{n}{x21} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{16}\PY{p}{,} \PY{l+m+mi}{183}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{334}\PY{p}{,} \PY{l+m+mi}{180}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{374}\PY{p}{,} \PY{l+m+mi}{143}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{558}\PY{p}{,} \PY{l+m+mi}{194}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{423}\PY{p}{,} \PY{l+m+mi}{240}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{603}\PY{p}{,} \PY{l+m+mi}{441}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                \PY{p}{[}\PY{l+m+mi}{309}\PY{p}{,} \PY{l+m+mi}{434}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{94}\PY{p}{,} \PY{l+m+mi}{329}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                \PY{p}{[}\PY{l+m+mi}{354}\PY{p}{,} \PY{l+m+mi}{323}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{188}\PY{p}{,} \PY{l+m+mi}{216}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+         \PY{n}{x22} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{52}\PY{p}{,} \PY{l+m+mi}{182}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{365}\PY{p}{,} \PY{l+m+mi}{180}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{408}\PY{p}{,} \PY{l+m+mi}{142}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{594}\PY{p}{,} \PY{l+m+mi}{194}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{454}\PY{p}{,} \PY{l+m+mi}{239}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{621}\PY{p}{,} \PY{l+m+mi}{440}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                \PY{p}{[}\PY{l+m+mi}{321}\PY{p}{,} \PY{l+m+mi}{433}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{113}\PY{p}{,} \PY{l+m+mi}{327}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                \PY{p}{[}\PY{l+m+mi}{380}\PY{p}{,} \PY{l+m+mi}{322}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{219}\PY{p}{,} \PY{l+m+mi}{214}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+         
+         \PY{n}{C02} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{]}
+         \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}        
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{C02}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{x21}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{x22}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         
+         
+         \PY{c+c1}{\PYZsh{} Image 31 and 32}
+         
+         \PY{n}{x31} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{205}\PY{p}{,} \PY{l+m+mi}{185}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{254}\PY{p}{,} \PY{l+m+mi}{294}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{426}\PY{p}{,} \PY{l+m+mi}{125}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{77}\PY{p}{,} \PY{l+m+mi}{128}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{426}\PY{p}{,} \PY{l+m+mi}{125}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{183}\PY{p}{,} \PY{l+m+mi}{149}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                \PY{p}{[}\PY{l+m+mi}{227}\PY{p}{,} \PY{l+m+mi}{149}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                 \PY{p}{[}\PY{l+m+mi}{276}\PY{p}{,} \PY{l+m+mi}{85}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{111}\PY{p}{,} \PY{l+m+mi}{43}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{249}\PY{p}{,} \PY{l+m+mi}{81}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+         \PY{n}{x32} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mi}{184}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{237}\PY{p}{,} \PY{l+m+mi}{293}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{392}\PY{p}{,} \PY{l+m+mi}{126}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{426}\PY{p}{,} \PY{l+m+mi}{125}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{40}\PY{p}{,} \PY{l+m+mi}{128}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{172}\PY{p}{,} \PY{l+m+mi}{149}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                \PY{p}{[}\PY{l+m+mi}{215}\PY{p}{,} \PY{l+m+mi}{149}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{243}\PY{p}{,} \PY{l+m+mi}{85}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                \PY{p}{[}\PY{l+m+mi}{77}\PY{p}{,} \PY{l+m+mi}{43}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{261}\PY{p}{,} \PY{l+m+mi}{81}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+         
+         \PY{n}{C03} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{]}
+         \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{C03}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{x31}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{x32}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Image 41 and 42}
+         
+         \PY{n}{x41} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{44}\PY{p}{,} \PY{l+m+mi}{198}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{380}\PY{p}{,} \PY{l+m+mi}{113}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{481}\PY{p}{,} \PY{l+m+mi}{147}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{356}\PY{p}{,} \PY{l+m+mi}{621}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{302}\PY{p}{,} \PY{l+m+mi}{668}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{263}\PY{p}{,} \PY{l+m+mi}{416}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                \PY{p}{[}\PY{l+m+mi}{83}\PY{p}{,} \PY{l+m+mi}{435}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{377}\PY{p}{,} \PY{l+m+mi}{663}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                \PY{p}{[}\PY{l+m+mi}{159}\PY{p}{,} \PY{l+m+mi}{373}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{105}\PY{p}{,} \PY{l+m+mi}{560}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+         \PY{n}{x42} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{32}\PY{p}{,} \PY{l+m+mi}{200}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{415}\PY{p}{,} \PY{l+m+mi}{109}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{523}\PY{p}{,} \PY{l+m+mi}{150}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{469}\PY{p}{,} \PY{l+m+mi}{660}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{422}\PY{p}{,} \PY{l+m+mi}{719}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{299}\PY{p}{,} \PY{l+m+mi}{431}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                \PY{p}{[}\PY{l+m+mi}{78}\PY{p}{,} \PY{l+m+mi}{460}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{522}\PY{p}{,} \PY{l+m+mi}{713}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                \PY{p}{[}\PY{l+m+mi}{170}\PY{p}{,} \PY{l+m+mi}{382}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{106}\PY{p}{,} \PY{l+m+mi}{613}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+         
+         \PY{n}{C04} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{]}
+         \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{C04}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{x41}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{x42}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Image 51 and 52}
+         \PY{n}{x51} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{704}\PY{p}{,} \PY{l+m+mi}{73}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{512}\PY{p}{,} \PY{l+m+mi}{464}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{960}\PY{p}{,} \PY{l+m+mi}{442}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{887}\PY{p}{,} \PY{l+m+mi}{1260}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{893}\PY{p}{,} \PY{l+m+mi}{439}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{69}\PY{p}{,} \PY{l+m+mi}{902}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                \PY{p}{[}\PY{l+m+mi}{1079}\PY{p}{,} \PY{l+m+mi}{1239}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{531}\PY{p}{,} \PY{l+m+mi}{948}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} 
+                \PY{p}{[}\PY{l+m+mi}{105}\PY{p}{,} \PY{l+m+mi}{1088}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1210}\PY{p}{,} \PY{l+m+mi}{975}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+         \PY{n}{x52} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{l+m+mi}{774}\PY{p}{,} \PY{l+m+mi}{80}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{583}\PY{p}{,} \PY{l+m+mi}{469}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{1014}\PY{p}{,} \PY{l+m+mi}{446}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{939}\PY{p}{,} \PY{l+m+mi}{1260}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{946}\PY{p}{,} \PY{l+m+mi}{442}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{142}\PY{p}{,} \PY{l+m+mi}{904}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                \PY{p}{[}\PY{l+m+mi}{1152}\PY{p}{,} \PY{l+m+mi}{1239}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+m+mi}{602}\PY{p}{,} \PY{l+m+mi}{950}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}
+                \PY{p}{[}\PY{l+m+mi}{171}\PY{p}{,} \PY{l+m+mi}{1088}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{l+m+mi}{1286}\PY{p}{,} \PY{l+m+mi}{975}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}
+         
+         \PY{n}{C05} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{p}{]}\PY{p}{]}
+         \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{C05}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{p}{[}\PY{n}{x51}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{n}{x52}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+         
+         \PY{n}{C0} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{m} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{C0\PYZus{}nb} \PY{o}{=} \PY{n}{C01}
+             \PY{k}{if} \PY{n}{m} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                 \PY{n}{C0\PYZus{}nb} \PY{o}{=} \PY{n}{C02}
+             \PY{k}{if} \PY{n}{m} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{:}
+                 \PY{n}{C0\PYZus{}nb} \PY{o}{=} \PY{n}{C03}
+             \PY{k}{if} \PY{n}{m} \PY{o}{==} \PY{l+m+mi}{3}\PY{p}{:}
+                 \PY{n}{C0\PYZus{}nb} \PY{o}{=} \PY{n}{C04}
+             \PY{k}{if} \PY{n}{m} \PY{o}{==} \PY{l+m+mi}{4}\PY{p}{:}
+                 \PY{n}{C0\PYZus{}nb} \PY{o}{=} \PY{n}{C05}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{C0}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{=} \PY{n}{C0\PYZus{}nb}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{C0}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{=} \PY{n}{C0\PYZus{}nb}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+         
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{C0}\PY{p}{)}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print(C0)}
+         \PY{n}{torch}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{n}{C0}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/C0\PYZus{}manual\PYZus{}coordinates\PYZus{}100.pt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         
+         \PY{c+c1}{\PYZsh{} Coordinates of the keypoints for each image 1 of the five pairs}
+         \PY{n}{X1} \PY{o}{=} \PY{n}{x11}\PY{p}{,} \PY{n}{x21}\PY{p}{,} \PY{n}{x31}\PY{p}{,} \PY{n}{x41}\PY{p}{,} \PY{n}{x51}
+         \PY{c+c1}{\PYZsh{} Coordinates of the keypoints for each image 2 of the five pairs}
+         \PY{n}{X2} \PY{o}{=} \PY{n}{x12}\PY{p}{,} \PY{n}{x22}\PY{p}{,} \PY{n}{x32}\PY{p}{,} \PY{n}{x42}\PY{p}{,} \PY{n}{x52}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+5
+
+    \end{Verbatim}
+
+    \hypertarget{compute-the-fundamental-matrix-f0-based-on-c0-using-wf-0}{%
+\subsubsection{Compute the Fundamental Matrix F0 based on C0 using: W*f
+= 0}\label{compute-the-fundamental-matrix-f0-based-on-c0-using-wf-0}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}16}]:} \PY{n}{W} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{10}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{W}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{=} \PY{n}{X1}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{n}{X2}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{W}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{o}{=} \PY{n}{X1}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{n}{X2}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{n}{W}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{o}{=} \PY{n}{X1}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{W}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{o}{=} \PY{n}{X1}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{*}\PY{n}{X2}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{W}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{o}{=} \PY{n}{X1}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{*}\PY{n}{X2}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{n}{W}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{o}{=} \PY{n}{X1}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{n}{W}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{]}\PY{o}{=} \PY{n}{X2}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{W}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}\PY{o}{=} \PY{n}{X2}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{n}{W}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Image }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{: W matrix}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{W}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} SVD}
+             \PY{n}{u}\PY{p}{,} \PY{n}{s}\PY{p}{,} \PY{n}{vh} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{svd}\PY{p}{(}\PY{n}{W}\PY{p}{,} \PY{n}{full\PYZus{}matrices}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} last row of V = last column V transposed}
+         
+             \PY{n}{f} \PY{o}{=} \PY{n}{vh}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{f = last column V transposed }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f}\PY{p}{)}
+         
+             \PY{n}{F} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{F}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{o}{=}\PY{n}{f}\PY{p}{[}\PY{n}{i}\PY{o}{*}\PY{l+m+mi}{3}\PY{o}{+}\PY{n}{j}\PY{p}{]}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Image }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{: Fundamental Matrix F0}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{F}\PY{p}{)}
+             \PY{n}{torch}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{n}{F}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/fundamental\PYZus{}matrix\PYZus{}0\PYZus{}images\PYZus{}pair\PYZus{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Image 1: W matrix
+
+[[ 25597.  33748.    143.  41528.  54752.    232.    179.    236.      1.]
+ [   944.   6400.     16.  23600. 160000.    400.     59.    400.      1.]
+ [  5723.  28320.     59.  46560. 230400.    480.     97.    480.      1.]
+ [ 32565.  83166.    167.  97500. 249000.    500.    195.    498.      1.]
+ [137940. 207273.    363. 216220. 324899.    569.    380.    571.      1.]
+ [363573. 246561.    597. 250299. 169743.    411.    609.    413.      1.]
+ [206067. 287421.    447. 295501. 412163.    641.    461.    643.      1.]
+ [784068.  43071.    879.  44600.   2450.     50.    892.     49.      1.]
+ [610742. 413930.    781. 412896. 279840.    528.    782.    530.      1.]
+ [606841. 497002.    779. 495444. 405768.    636.    779.    638.      1.]]
+\_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_
+
+f = last column V transposed 
+
+[-0.00000012  0.00004452 -0.02110133 -0.00004641 -0.00000091  0.01201702
+  0.02204132 -0.00950205 -0.99941694]
+
+Image 1: Fundamental Matrix F0
+
+[[-0.00000012  0.00004452 -0.02110133]
+ [-0.00004641 -0.00000091  0.01201702]
+ [ 0.02204132 -0.00950205 -0.99941694]]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+Image 2: W matrix
+
+[[   832.   2912.     16.   9516.  33306.    183.     52.    182.      1.]
+ [121910.  60120.    334.  65700.  32400.    180.    365.    180.      1.]
+ [152592.  53108.    374.  58344.  20306.    143.    408.    142.      1.]
+ [331452. 108252.    558. 115236.  37636.    194.    594.    194.      1.]
+ [192042. 101097.    423. 108960.  57360.    240.    454.    239.      1.]
+ [374463. 265320.    603. 273861. 194040.    441.    621.    440.      1.]
+ [ 99189. 133797.    309. 139314. 187922.    434.    321.    433.      1.]
+ [ 10622.  30738.     94.  37177. 107583.    329.    113.    327.      1.]
+ [134520. 113988.    354. 122740. 104006.    323.    380.    322.      1.]
+ [ 41172.  40232.    188.  47304.  46224.    216.    219.    214.      1.]]
+\_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_
+
+f = last column V transposed 
+
+[-0.00000042  0.0000887  -0.02176812 -0.00008699 -0.00000711  0.03859894
+  0.02178061 -0.03319439 -0.99822843]
+
+Image 2: Fundamental Matrix F0
+
+[[-0.00000042  0.0000887  -0.02176812]
+ [-0.00008699 -0.00000711  0.03859894]
+ [ 0.02178061 -0.03319439 -0.99822843]]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+Image 3: W matrix
+
+[[ 41000.  37720.    205.  37000.  34040.    185.    200.    184.      1.]
+ [ 60198.  74422.    254.  69678.  86142.    294.    237.    293.      1.]
+ [166992.  53676.    426.  49000.  15750.    125.    392.    126.      1.]
+ [ 32802.   9625.     77.  54528.  16000.    128.    426.    125.      1.]
+ [ 17040.  54528.    426.   5000.  16000.    125.     40.    128.      1.]
+ [ 31476.  27267.    183.  25628.  22201.    149.    172.    149.      1.]
+ [ 48805.  33823.    227.  32035.  22201.    149.    215.    149.      1.]
+ [ 67068.  23460.    276.  20655.   7225.     85.    243.     85.      1.]
+ [  8547.   4773.    111.   3311.   1849.     43.     77.     43.      1.]
+ [ 64989.  20169.    249.  21141.   6561.     81.    261.     81.      1.]]
+\_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_
+
+f = last column V transposed 
+
+[-0.00000146 -0.00015244  0.01749345  0.00011652  0.00001653 -0.24890633
+ -0.01287673  0.25466266 -0.93419522]
+
+Image 3: Fundamental Matrix F0
+
+[[-0.00000146 -0.00015244  0.01749345]
+ [ 0.00011652  0.00001653 -0.24890633]
+ [-0.01287673  0.25466266 -0.93419522]]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+Image 4: W matrix
+
+[[  1408.   8800.     44.   6336.  39600.    198.     32.    200.      1.]
+ [157700.  41420.    380.  46895.  12317.    113.    415.    109.      1.]
+ [251563.  72150.    481.  76881.  22050.    147.    523.    150.      1.]
+ [166964. 234960.    356. 291249. 409860.    621.    469.    660.      1.]
+ [127444. 217138.    302. 281896. 480292.    668.    422.    719.      1.]
+ [ 78637. 113353.    263. 124384. 179296.    416.    299.    431.      1.]
+ [  6474.  38180.     83.  33930. 200100.    435.     78.    460.      1.]
+ [196794. 268801.    377. 346086. 472719.    663.    522.    713.      1.]
+ [ 27030.  60738.    159.  63410. 142486.    373.    170.    382.      1.]
+ [ 11130.  64365.    105.  59360. 343280.    560.    106.    613.      1.]]
+\_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_
+
+f = last column V transposed 
+
+[ 0.00000426  0.00009031 -0.07760512 -0.0000925  -0.0000011   0.00610541
+  0.06847118 -0.00572924  0.99459491]
+
+Image 4: Fundamental Matrix F0
+
+[[ 0.00000426  0.00009031 -0.07760512]
+ [-0.0000925  -0.0000011   0.00610541]
+ [ 0.06847118 -0.00572924  0.99459491]]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+Image 5: W matrix
+
+[[ 544896.   56320.     704.   56502.    5840.      73.     774.      80.
+        1.]
+ [ 298496.  240128.     512.  270512.  217616.     464.     583.     469.
+        1.]
+ [ 973440.  428160.     960.  448188.  197132.     442.    1014.     446.
+        1.]
+ [ 832893. 1117620.     887. 1183140. 1587600.    1260.     939.    1260.
+        1.]
+ [ 844778.  394706.     893.  415294.  194038.     439.     946.     442.
+        1.]
+ [   9798.   62376.      69.  128084.  815408.     902.     142.     904.
+        1.]
+ [1243008. 1336881.    1079. 1427328. 1535121.    1239.    1152.    1239.
+        1.]
+ [ 319662.  504450.     531.  570696.  900600.     948.     602.     950.
+        1.]
+ [  17955.  114240.     105.  186048. 1183744.    1088.     171.    1088.
+        1.]
+ [1556060. 1179750.    1210. 1253850.  950625.     975.    1286.     975.
+        1.]]
+\_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_
+
+f = last column V transposed 
+
+[ 0.00000003  0.00000599 -0.00670189 -0.0000064  -0.0000001  -0.02166038
+  0.00710481  0.02268284 -0.99946032]
+
+Image 5: Fundamental Matrix F0
+
+[[ 0.00000003  0.00000599 -0.00670189]
+ [-0.0000064  -0.0000001  -0.02166038]
+ [ 0.00710481  0.02268284 -0.99946032]]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+    \end{Verbatim}
+
+    \hypertarget{detect-100-strongest-interest-points-sift-in-each-image-then-compute-their-deep-features-and-finally-match-them-one-to-one}{%
+\subsection{Detect 100 strongest interest points (SIFT) in each image,
+then, compute their deep features, and finally match them
+one-to-one}\label{detect-100-strongest-interest-points-sift-in-each-image-then-compute-their-deep-features-and-finally-match-them-one-to-one}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{c+c1}{\PYZsh{} parameters setting}
+         \PY{n}{query\PYZus{}path} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{stereo/image1/}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{image\PYZus{}path} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{stereo/image2/}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{query\PYZus{}num} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{n}{image\PYZus{}num} \PY{o}{=} \PY{l+m+mi}{5}
+         \PY{n}{kps\PYZus{}num} \PY{o}{=} \PY{l+m+mi}{100} \PY{c+c1}{\PYZsh{}number of keypoints we want to detect }
+         \PY{n}{patch\PYZus{}size} \PY{o}{=} \PY{l+m+mi}{32}
+         \PY{n}{patches} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{query\PYZus{}num}\PY{o}{+}\PY{n}{image\PYZus{}num}\PY{p}{,} \PY{n}{kps\PYZus{}num}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{patch\PYZus{}size}\PY{p}{,} \PY{n}{patch\PYZus{}size}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{c+c1}{\PYZsh{} Initiate SURF detector}
+        \PY{n}{surf} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{xfeatures2d}\PY{o}{.}\PY{n}{SURF\PYZus{}create}\PY{p}{(}\PY{n}{kps\PYZus{}num}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{k}{def} \PY{n+nf}{getPatches}\PY{p}{(}\PY{n}{kps}\PY{p}{,} \PY{n}{img}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{l+m+mi}{32}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{l+m+mi}{500}\PY{p}{)}\PY{p}{:}
+            \PY{n}{res} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{num}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{size}\PY{p}{,} \PY{n}{size}\PY{p}{)}
+            \PY{k}{if} \PY{n+nb}{type}\PY{p}{(}\PY{n}{img}\PY{p}{)} \PY{o+ow}{is} \PY{n}{np}\PY{o}{.}\PY{n}{ndarray}\PY{p}{:}
+                \PY{n}{img} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{from\PYZus{}numpy}\PY{p}{(}\PY{n}{img}\PY{p}{)}
+            \PY{n}{h}\PY{p}{,} \PY{n}{w} \PY{o}{=} \PY{n}{img}\PY{o}{.}\PY{n}{shape}      \PY{c+c1}{\PYZsh{} note: for image, the x direction is the verticle, y\PYZhy{}direction is the horizontal...}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{num}\PY{p}{)}\PY{p}{:}
+                \PY{n}{cx}\PY{p}{,} \PY{n}{cy} \PY{o}{=} \PY{n}{kps}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+                \PY{n}{cx}\PY{p}{,} \PY{n}{cy} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{cx}\PY{p}{)}\PY{p}{,} \PY{n+nb}{int}\PY{p}{(}\PY{n}{cy}\PY{p}{)}
+                \PY{n}{dd} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{n}{size}\PY{o}{/}\PY{l+m+mi}{2}\PY{p}{)}
+                \PY{n}{xmin}\PY{p}{,} \PY{n}{xmax} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{cx} \PY{o}{\PYZhy{}} \PY{n}{dd}\PY{p}{)}\PY{p}{,} \PY{n+nb}{min}\PY{p}{(}\PY{n}{w}\PY{p}{,} \PY{n}{cx} \PY{o}{+} \PY{n}{dd} \PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1}
+                \PY{n}{ymin}\PY{p}{,} \PY{n}{ymax} \PY{o}{=} \PY{n+nb}{max}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{cy} \PY{o}{\PYZhy{}} \PY{n}{dd}\PY{p}{)}\PY{p}{,} \PY{n+nb}{min}\PY{p}{(}\PY{n}{h}\PY{p}{,} \PY{n}{cy} \PY{o}{+} \PY{n}{dd} \PY{p}{)} \PY{o}{\PYZhy{}} \PY{l+m+mi}{1} 
+                
+                \PY{n}{xmin\PYZus{}res}\PY{p}{,} \PY{n}{xmax\PYZus{}res} \PY{o}{=} \PY{n}{dd} \PY{o}{\PYZhy{}} \PY{n+nb}{min}\PY{p}{(}\PY{n}{dd}\PY{p}{,}\PY{n}{cx}\PY{p}{)}\PY{p}{,} \PY{n}{dd} \PY{o}{+} \PY{n+nb}{min}\PY{p}{(}\PY{n}{dd}\PY{p}{,} \PY{n}{w} \PY{o}{\PYZhy{}} \PY{n}{cx}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+                \PY{n}{ymin\PYZus{}res}\PY{p}{,} \PY{n}{ymax\PYZus{}res} \PY{o}{=} \PY{n}{dd} \PY{o}{\PYZhy{}} \PY{n+nb}{min}\PY{p}{(}\PY{n}{dd}\PY{p}{,}\PY{n}{cy}\PY{p}{)}\PY{p}{,} \PY{n}{dd} \PY{o}{+} \PY{n+nb}{min}\PY{p}{(}\PY{n}{dd}\PY{p}{,} \PY{n}{h} \PY{o}{\PYZhy{}} \PY{n}{cy}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+        
+                \PY{n}{res}\PY{p}{[}\PY{n}{i}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{,} \PY{n}{ymin\PYZus{}res}\PY{p}{:} \PY{n}{ymax\PYZus{}res}\PY{p}{,} \PY{n}{xmin\PYZus{}res}\PY{p}{:} \PY{n}{xmax\PYZus{}res}\PY{p}{]} \PY{o}{=} \PY{n}{img}\PY{p}{[}\PY{n}{ymin}\PY{p}{:} \PY{n}{ymax}\PY{p}{,} \PY{n}{xmin}\PY{p}{:} \PY{n}{xmax}\PY{p}{]}
+            \PY{k}{return} \PY{n}{res}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}28}]:} \PY{c+c1}{\PYZsh{} tensor for query/image patches}
+         \PY{n}{save} \PY{o}{=} \PY{k+kc}{False}
+         \PY{k}{for} \PY{n}{idx} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{query\PYZus{}num}\PY{o}{+}\PY{n}{image\PYZus{}num}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{idx} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Images 1: coordinates pi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{if} \PY{n}{idx} \PY{o}{==} \PY{n}{query\PYZus{}num}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Images 2: coordinates qi}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+             \PY{k}{if} \PY{n}{idx} \PY{o}{\PYZlt{}} \PY{n}{query\PYZus{}num}\PY{p}{:}
+                 \PY{n}{img\PYZus{}dir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{query\PYZus{}path}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{image}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{.png}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n}{img\PYZus{}dir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{image\PYZus{}path}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{image}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{.png}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{query\PYZus{}num}\PY{p}{)}\PY{p}{)}
+             \PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{n}{img\PYZus{}dir}\PY{p}{)}
+             \PY{n}{img}\PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,}\PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2GRAY}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{}\PYZsh{} find the keypoints and descriptors with SURF}
+             \PY{n}{kps}\PY{p}{,} \PY{n}{des} \PY{o}{=} \PY{n}{surf}\PY{o}{.}\PY{n}{detectAndCompute}\PY{p}{(}\PY{n}{img}\PY{p}{,} \PY{k+kc}{None}\PY{p}{)}
+             \PY{n}{keypoints\PYZus{}img} \PY{o}{=} \PY{p}{[}\PY{n}{kps}\PY{p}{[}\PY{n}{a}\PY{p}{]}\PY{o}{.}\PY{n}{pt} \PY{k}{for} \PY{n}{a} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{kps\PYZus{}num}\PY{p}{)}\PY{p}{]} 
+             \PY{n}{keypoints\PYZus{}img2} \PY{o}{=} \PY{p}{[}\PY{n}{kps}\PY{p}{[}\PY{n}{a}\PY{p}{]} \PY{k}{for} \PY{n}{a} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{kps\PYZus{}num}\PY{p}{)}\PY{p}{]} 
+             \PY{n}{patches}\PY{p}{[}\PY{n}{idx}\PY{p}{]} \PY{o}{=} \PY{n}{getPatches}\PY{p}{(}\PY{n}{keypoints\PYZus{}img}\PY{p}{,} \PY{n}{img}\PY{p}{,} \PY{n}{size}\PY{o}{=}\PY{n}{patch\PYZus{}size}\PY{p}{,} \PY{n}{num}\PY{o}{=}\PY{n}{kps\PYZus{}num}\PY{p}{)}
+             
+             \PY{c+c1}{\PYZsh{}\PYZsh{} plot keypoints on each image}
+             \PY{n}{img2} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{drawKeypoints}\PY{p}{(}\PY{n}{img}\PY{p}{,} \PY{n}{keypoints\PYZus{}img2}\PY{p}{,} \PY{k+kc}{None}\PY{p}{,} \PY{n}{color}\PY{o}{=}\PY{p}{(}\PY{l+m+mi}{255}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{n}{flags}\PY{o}{=}\PY{n}{cv2}\PY{o}{.}\PY{n}{DRAW\PYZus{}MATCHES\PYZus{}FLAGS\PYZus{}DRAW\PYZus{}RICH\PYZus{}KEYPOINTS}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img2}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} Saving the coordinates (x,y) of the detected keypoints}
+             \PY{k}{if} \PY{n}{save}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{idx} \PY{o}{\PYZlt{}} \PY{n}{query\PYZus{}num}\PY{p}{:}
+                     \PY{n}{torch}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{n}{keypoints\PYZus{}img}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/detected\PYZus{}SIFT\PYZus{}keypoints\PYZus{}coordinates\PYZus{}image1\PYZus{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{.pt}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{else}\PY{p}{:}
+                     \PY{n}{torch}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{n}{keypoints\PYZus{}img}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/detected\PYZus{}SIFT\PYZus{}keypoints\PYZus{}coordinates\PYZus{}image2\PYZus{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{.pt}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{query\PYZus{}num}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{output\PYZus{}dir\PYZus{}patches} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/keypoints\PYZus{}patches\PYZus{}images.pt}\PY{l+s+s2}{\PYZdq{}}
+                 \PY{n}{torch}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{n}{patches}\PY{p}{,} \PY{n}{output\PYZus{}dir\PYZus{}patches}\PY{p}{)}
+                 
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{patches}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Images 1: coordinates pi
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+Images 2: coordinates qi
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_10.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_12_11.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+torch.Size([10, 100, 1, 32, 32])
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{c+c1}{\PYZsh{}\PYZsh{}\PYZsh{} Load the coordinates of the detected keypoints (using SIFT)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{n}{keypoints\PYZus{}coordinates\PYZus{}11} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/detected\PYZus{}SIFT\PYZus{}keypoints\PYZus{}coordinates\PYZus{}image1\PYZus{}1.pt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{keypoints\PYZus{}coordinates\PYZus{}12} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/detected\PYZus{}SIFT\PYZus{}keypoints\PYZus{}coordinates\PYZus{}image1\PYZus{}2.pt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{keypoints\PYZus{}coordinates\PYZus{}13} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/detected\PYZus{}SIFT\PYZus{}keypoints\PYZus{}coordinates\PYZus{}image1\PYZus{}3.pt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{keypoints\PYZus{}coordinates\PYZus{}14} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/detected\PYZus{}SIFT\PYZus{}keypoints\PYZus{}coordinates\PYZus{}image1\PYZus{}4.pt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{keypoints\PYZus{}coordinates\PYZus{}15} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/detected\PYZus{}SIFT\PYZus{}keypoints\PYZus{}coordinates\PYZus{}image1\PYZus{}5.pt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{keypoints\PYZus{}coordinates\PYZus{}11}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} = 100}
+         \PY{n}{keypoints\PYZus{}coordinates\PYZus{}21} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/detected\PYZus{}SIFT\PYZus{}keypoints\PYZus{}coordinates\PYZus{}image2\PYZus{}1.pt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{keypoints\PYZus{}coordinates\PYZus{}22} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/detected\PYZus{}SIFT\PYZus{}keypoints\PYZus{}coordinates\PYZus{}image2\PYZus{}2.pt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{keypoints\PYZus{}coordinates\PYZus{}23} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/detected\PYZus{}SIFT\PYZus{}keypoints\PYZus{}coordinates\PYZus{}image2\PYZus{}3.pt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{keypoints\PYZus{}coordinates\PYZus{}24} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/detected\PYZus{}SIFT\PYZus{}keypoints\PYZus{}coordinates\PYZus{}image2\PYZus{}4.pt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{keypoints\PYZus{}coordinates\PYZus{}25} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/detected\PYZus{}SIFT\PYZus{}keypoints\PYZus{}coordinates\PYZus{}image2\PYZus{}5.pt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print(keypoints\PYZus{}coordinates\PYZus{}12)}
+         
+         \PY{c+c1}{\PYZsh{} IMAGES 1}
+         \PY{n}{keypoints\PYZus{}coordinates\PYZus{}p} \PY{o}{=} \PY{p}{[}\PY{n}{keypoints\PYZus{}coordinates\PYZus{}11}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{n}{keypoints\PYZus{}coordinates\PYZus{}12}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{n}{keypoints\PYZus{}coordinates\PYZus{}13}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{n}{keypoints\PYZus{}coordinates\PYZus{}14}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{n}{keypoints\PYZus{}coordinates\PYZus{}15}\PY{p}{]}
+         
+         \PY{c+c1}{\PYZsh{} IMAGES 2}
+         \PY{n}{keypoints\PYZus{}coordinates\PYZus{}q} \PY{o}{=} \PY{p}{[}\PY{n}{keypoints\PYZus{}coordinates\PYZus{}21}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{n}{keypoints\PYZus{}coordinates\PYZus{}22}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{n}{keypoints\PYZus{}coordinates\PYZus{}23}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{n}{keypoints\PYZus{}coordinates\PYZus{}24}\PY{p}{]}\PY{p}{,}\PY{p}{[}\PY{n}{keypoints\PYZus{}coordinates\PYZus{}25}\PY{p}{]}
+         
+         \PY{n}{keypoints\PYZus{}coordinates} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{n}{query\PYZus{}num}\PY{o}{+}\PY{n}{image\PYZus{}num}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,} \PY{n}{kps\PYZus{}num}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{keypoints\PYZus{}coordinates\PYZus{}p}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} =5}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{keypoints\PYZus{}coordinates\PYZus{}q}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} =5}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{keypoints\PYZus{}coordinates\PYZus{}q}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} =100}
+         
+         \PY{c+c1}{\PYZsh{}print(keypoints\PYZus{}coordinates\PYZus{}p[0][0][1])}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+100
+5
+5
+100
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:}     
+\end{Verbatim}
+
+
+    \hypertarget{import-pre-trained-cnn}{%
+\subsection{Import pre-trained CNN}\label{import-pre-trained-cnn}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}42}]:} \PY{c+c1}{\PYZsh{} import network, load pretrained weights, and turn on testing mode}
+         \PY{k+kn}{from} \PY{n+nn}{descriptor\PYZus{}CNN3} \PY{k}{import} \PY{n}{DesNet}
+         \PY{n}{model} \PY{o}{=} \PY{n}{DesNet}\PY{p}{(}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{p}{)}
+         \PY{n}{trained\PYZus{}weights} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{checkpoint.pth}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{model}\PY{o}{.}\PY{n}{load\PYZus{}state\PYZus{}dict}\PY{p}{(}\PY{n}{trained\PYZus{}weights}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{state\PYZus{}dict}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{c+c1}{\PYZsh{} Load the patches }
+         \PY{n}{patches\PYZus{}dir\PYZus{}images} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/keypoints\PYZus{}patches\PYZus{}images.pt}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{patches} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{patches\PYZus{}dir\PYZus{}images}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{patches}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+torch.Size([10, 100, 1, 32, 32])
+
+    \end{Verbatim}
+
+    \hypertarget{getting-the-keypoints-descriptions-using-the-previously-imported-cnn}{%
+\subsection{Getting the keypoints descriptions using the previously
+imported
+CNN}\label{getting-the-keypoints-descriptions-using-the-previously-imported-cnn}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{n}{model}\PY{o}{.}\PY{n}{eval}\PY{p}{(}\PY{p}{)}
+         \PY{k}{with} \PY{n}{torch}\PY{o}{.}\PY{n}{no\PYZus{}grad}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+             \PY{n}{des1} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{n}{patches}\PY{p}{[}\PY{p}{:}\PY{n}{query\PYZus{}num}\PY{p}{]}\PY{o}{.}\PY{n}{view}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{patch\PYZus{}size}\PY{p}{,}\PY{n}{patch\PYZus{}size}\PY{p}{)}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{view}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{kps\PYZus{}num}\PY{p}{,} \PY{l+m+mi}{128}\PY{p}{)}
+             \PY{n}{des2} \PY{o}{=} \PY{n}{model}\PY{p}{(}\PY{n}{patches}\PY{p}{[}\PY{n}{query\PYZus{}num}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{view}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{,} \PY{n}{patch\PYZus{}size}\PY{p}{,}\PY{n}{patch\PYZus{}size}\PY{p}{)}\PY{o}{.}\PY{n}{cuda}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{view}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{kps\PYZus{}num}\PY{p}{,} \PY{l+m+mi}{128}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}45}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{des1}\PY{o}{.}\PY{n}{shape}\PY{p}{)}  \PY{c+c1}{\PYZsh{} [number of images, number of keypoints, 128]}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{des2}\PY{o}{.}\PY{n}{shape}\PY{p}{)}  \PY{c+c1}{\PYZsh{} [number of images, number of keypoints, 128]}
+         \PY{c+c1}{\PYZsh{} save keypoints descriptions into a pytorch file}
+         \PY{n}{des\PYZus{}dir} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/images\PYZus{}keypoints\PYZus{}descriptions.pt}\PY{l+s+s2}{\PYZdq{}}
+         \PY{c+c1}{\PYZsh{}torch.save(description\PYZus{}images, des\PYZus{}dir)}
+         \PY{c+c1}{\PYZsh{} save descriptions }
+         \PY{c+c1}{\PYZsh{}print(des1)}
+         \PY{n}{torch}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{p}{[}\PY{n}{des1}\PY{p}{,} \PY{n}{des2}\PY{p}{]}\PY{p}{,} \PY{n}{des\PYZus{}dir}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+torch.Size([5, 100, 128])
+torch.Size([5, 100, 128])
+
+    \end{Verbatim}
+
+    \hypertarget{getting-one-to-one-similitude-matrix}{%
+\section{Getting one to one similitude
+matrix}\label{getting-one-to-one-similitude-matrix}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{p}{[}\PY{n}{des1}\PY{p}{,} \PY{n}{des2}\PY{p}{]} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{n}{des\PYZus{}dir}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{des1}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{des2}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print(images\PYZus{}description)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+torch.Size([5, 100, 128])
+torch.Size([5, 100, 128])
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}47}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{keypoints\PYZus{}coordinates\PYZus{}p}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{99}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{keypoints\PYZus{}coordinates\PYZus{}p}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}keypoints\PYZus{}coordinates\PYZus{}p[number of the pair][?][number of the (x,y)]}
+         \PY{c+c1}{\PYZsh{}print(keypoints\PYZus{}coordinates\PYZus{}p)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(138.15528869628906, 308.47613525390625)
+(447.8544921875, 639.9784545898438)
+
+    \end{Verbatim}
+
+    \hypertarget{hungarian}{%
+\subsection{Hungarian}\label{hungarian}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}48}]:} \PY{n}{save} \PY{o}{=} \PY{k+kc}{False}
+         \PY{k+kn}{from} \PY{n+nn}{munkres} \PY{k}{import} \PY{n}{Munkres}
+         \PY{n}{C\PYZus{}onetoone} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         \PY{n}{sim\PYZus{}matrix} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{qkeypoint} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{images\PYZus{}keypoint} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{cost\PYZus{}matrix} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{,} \PY{l+m+mi}{100}\PY{p}{)}\PY{p}{)}
+                 \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+                     \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{cost\PYZus{}matrix}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{norm}\PY{p}{(}\PY{n}{des1}\PY{p}{[}\PY{n}{qkeypoint}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{o}{.}\PY{n}{cpu}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{numpy}\PY{p}{(}\PY{p}{)} \PY{o}{\PYZhy{}} \PY{n}{des2}\PY{p}{[}\PY{n}{images\PYZus{}keypoint}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{o}{.}\PY{n}{cpu}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{numpy}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+                 \PY{c+c1}{\PYZsh{} Hungarian: one\PYZhy{}to\PYZhy{}one matching}
+                 \PY{n}{m} \PY{o}{=} \PY{n}{Munkres}\PY{p}{(}\PY{p}{)}
+                 \PY{n}{indexes} \PY{o}{=} \PY{n}{m}\PY{o}{.}\PY{n}{compute}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{copy}\PY{p}{(}\PY{n}{cost\PYZus{}matrix}\PY{p}{)}\PY{p}{)}
+                 
+                 \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n}{indexes}\PY{p}{:}
+                         \PY{n}{sim\PYZus{}matrix}\PY{p}{[}\PY{n}{qkeypoint}\PY{p}{,} \PY{n}{images\PYZus{}keypoint}\PY{p}{]} \PY{o}{+}\PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{exp}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{cost\PYZus{}matrix}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{)}
+         
+                 \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{indexes}\PY{p}{)}\PY{p}{)}\PY{p}{:}
+                         \PY{n}{C\PYZus{}onetoone}\PY{p}{[}\PY{n}{qkeypoint}\PY{p}{]}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{keypoints\PYZus{}coordinates\PYZus{}p}\PY{p}{[}\PY{n}{qkeypoint}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{indexes}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                         \PY{n}{C\PYZus{}onetoone}\PY{p}{[}\PY{n}{qkeypoint}\PY{p}{]}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{keypoints\PYZus{}coordinates\PYZus{}p}\PY{p}{[}\PY{n}{qkeypoint}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{indexes}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                         \PY{n}{C\PYZus{}onetoone}\PY{p}{[}\PY{n}{qkeypoint}\PY{p}{]}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+                         \PY{n}{C\PYZus{}onetoone}\PY{p}{[}\PY{n}{qkeypoint}\PY{p}{]}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{keypoints\PYZus{}coordinates\PYZus{}q}\PY{p}{[}\PY{n}{qkeypoint}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{indexes}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                         \PY{n}{C\PYZus{}onetoone}\PY{p}{[}\PY{n}{qkeypoint}\PY{p}{]}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{keypoints\PYZus{}coordinates\PYZus{}q}\PY{p}{[}\PY{n}{qkeypoint}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{n}{indexes}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                         \PY{n}{C\PYZus{}onetoone}\PY{p}{[}\PY{n}{qkeypoint}\PY{p}{]}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+                     
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{C\PYZus{}onetoone}\PY{p}{)}
+         \PY{k}{if} \PY{n}{save}\PY{p}{:} 
+             \PY{n}{torch}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{n}{C\PYZus{}onetoone}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/C\PYZus{}onetoone\PYZus{}coordinates\PYZus{}100.pt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[[[ 198.18803406  235.29318237    1.        ]
+   [ 697.60070801  495.41763306    1.        ]]
+
+  [[ 447.85449219  639.97845459    1.        ]
+   [ 960.98742676  236.78692627    1.        ]]
+
+  [[  19.95652008  395.08258057    1.        ]
+   [ 707.56115723   86.87532043    1.        ]]
+
+  {\ldots}
+
+  [[ 132.99514771  347.67245483    1.        ]
+   [  31.66464424  259.91995239    1.        ]]
+
+  [[ 322.2756958   352.46789551    1.        ]
+   [ 555.56109619  694.80975342    1.        ]]
+
+  [[ 138.1552887   308.47613525    1.        ]
+   [ 453.40383911  616.29626465    1.        ]]]
+
+
+ [[[ 130.47540283  158.40396118    1.        ]
+   [ 409.76556396  520.99810791    1.        ]]
+
+  [[ 146.87660217  158.2979126     1.        ]
+   [ 259.27926636  152.04721069    1.        ]]
+
+  [[ 108.62760162  234.52099609    1.        ]
+   [ 443.29556274  501.90734863    1.        ]]
+
+  {\ldots}
+
+  [[ 155.92417908  238.86587524    1.        ]
+   [ 434.40997314  148.0977478     1.        ]]
+
+  [[ 199.24328613  254.14511108    1.        ]
+   [ 458.65893555  150.12695312    1.        ]]
+
+  [[ 385.74160767  209.21643066    1.        ]
+   [ 454.72796631  232.93907166    1.        ]]]
+
+
+ [[[  45.37133026  218.84408569    1.        ]
+   [ 232.08538818  150.06181335    1.        ]]
+
+  [[  90.03498077  171.98580933    1.        ]
+   [ 345.24438477  147.9916687     1.        ]]
+
+  [[  89.2980423   174.19163513    1.        ]
+   [ 117.55693054  185.29472351    1.        ]]
+
+  {\ldots}
+
+  [[ 344.13369751  220.76347351    1.        ]
+   [ 163.74804688  158.44673157    1.        ]]
+
+  [[ 394.59008789  148.64886475    1.        ]
+   [ 282.88934326  151.28204346    1.        ]]
+
+  [[ 252.89376831  184.9786377     1.        ]
+   [ 319.884552    173.71047974    1.        ]]]
+
+
+ [[[ 539.91699219  740.18371582    1.        ]
+   [ 553.22595215  375.01159668    1.        ]]
+
+  [[ 519.83959961  742.1227417     1.        ]
+   [ 560.72485352  389.53973389    1.        ]]
+
+  [[ 519.75726318  742.12084961    1.        ]
+   [ 375.51138306  370.63601685    1.        ]]
+
+  {\ldots}
+
+  [[ 414.02957153  707.58874512    1.        ]
+   [ 530.44622803  598.64593506    1.        ]]
+
+  [[ 425.25061035  173.8767395     1.        ]
+   [ 444.87979126  605.29425049    1.        ]]
+
+  [[ 333.13696289  394.88543701    1.        ]
+   [ 300.60906982  593.71514893    1.        ]]]
+
+
+ [[[ 601.35992432  441.88775635    1.        ]
+   [ 675.64758301  445.19906616    1.        ]]
+
+  [[1225.62365723 1067.68737793    1.        ]
+   [1300.95581055 1069.03771973    1.        ]]
+
+  [[1225.47753906 1067.80004883    1.        ]
+   [1300.65209961 1069.17492676    1.        ]]
+
+  {\ldots}
+
+  [[1067.20935059 1175.42871094    1.        ]
+   [1139.19677734 1176.43774414    1.        ]]
+
+  [[ 135.14613342 1006.74584961    1.        ]
+   [ 198.44132996 1008.27990723    1.        ]]
+
+  [[1073.0390625  1181.11401367    1.        ]
+   [1146.74829102 1195.59155273    1.        ]]]]
+
+    \end{Verbatim}
+
+    \hypertarget{check-the-cost-and-similitude-matrices}{%
+\subsubsection{Check the cost and similitude
+matrices}\label{check-the-cost-and-similitude-matrices}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}49}]:} \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Cost matrix}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{cost\PYZus{}matrix}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{cost\PYZus{}matrix}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Similitude matrix}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{sim\PYZus{}matrix}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{sim\PYZus{}matrix}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{The matching one to one is correct if the highest values are the diagonal ones}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Cost matrix
+
+[[1.07105947 1.07105947 0.29357091 {\ldots} 1.42162728 0.92484719 1.32912803]
+ [0.26871565 0.26871568 1.0388993  {\ldots} 1.1980685  1.10351861 1.17367041]
+ [0.26871568 0.26871568 1.0388993  {\ldots} 1.1980685  1.10351861 1.17367041]
+ {\ldots}
+ [1.18849492 1.18849492 1.33453071 {\ldots} 1.48261297 1.34418797 1.16350985]
+ [1.0786947  1.0786947  1.25028741 {\ldots} 1.29727137 1.22633028 1.18396795]
+ [1.27808917 1.27808917 1.33976698 {\ldots} 1.44743574 1.23740435 1.16258049]]
+(100, 100)
+
+-----------------------------------------------
+
+Similitude matrix
+
+[[52.48320967 34.67443357 34.15875957 32.77625998 35.501533  ]
+ [34.77722952 60.10870569 34.37093128 33.26215063 34.61884151]
+ [34.05201469 33.92104223 48.50168571 33.47446545 34.66774887]
+ [33.50170963 33.89448364 33.57659914 46.17897671 33.46480992]
+ [35.32090112 34.74653273 34.35425259 33.14839452 57.25964678]]
+(5, 5)
+The matching one to one is correct if the highest values are the diagonal ones
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}50}]:} \PY{c+c1}{\PYZsh{} save matrices cost \PYZam{} similitude}
+         \PY{n}{cost\PYZus{}one2one\PYZus{}dir} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/cost\PYZus{}one2one.pt}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{torch}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{n}{cost\PYZus{}matrix}\PY{p}{,} \PY{n}{cost\PYZus{}one2one\PYZus{}dir}\PY{p}{)}
+         \PY{n}{similarity\PYZus{}one2one\PYZus{}dir} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/similarity\PYZus{}one2one.pt}\PY{l+s+s2}{\PYZdq{}}
+         \PY{n}{torch}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{n}{sim\PYZus{}matrix}\PY{p}{,} \PY{n}{similarity\PYZus{}one2one\PYZus{}dir}\PY{p}{)}
+\end{Verbatim}
+
+
+    \hypertarget{automatically-select-30-pairs-for-which-the-fundamental-equation-closely-holds}{%
+\subsection{Automatically select 30 pairs for which the fundamental
+equation closely
+holds:}\label{automatically-select-30-pairs-for-which-the-fundamental-equation-closely-holds}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}52}]:} \PY{n}{C} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/C\PYZus{}onetoone\PYZus{}coordinates\PYZus{}100.pt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{C}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{C}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{}p1q1}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{C}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{}p1 }
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{C}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{}q1}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+(5, 100, 2, 3)
+[[198.18803406 235.29318237   1.        ]
+ [697.60070801 495.41763306   1.        ]]
+[198.18803406 235.29318237   1.        ]
+[697.60070801 495.41763306   1.        ]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}54}]:} \PY{c+c1}{\PYZsh{} Loading the fundamental matrices estimated using the n=10  manually selected pairs of points}
+         \PY{n}{F01} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/fundamental\PYZus{}matrix\PYZus{}0\PYZus{}images\PYZus{}pair\PYZus{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{F02} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/fundamental\PYZus{}matrix\PYZus{}0\PYZus{}images\PYZus{}pair\PYZus{}2}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{F03} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/fundamental\PYZus{}matrix\PYZus{}0\PYZus{}images\PYZus{}pair\PYZus{}3}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{F04} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/fundamental\PYZus{}matrix\PYZus{}0\PYZus{}images\PYZus{}pair\PYZus{}4}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n}{F05} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/fundamental\PYZus{}matrix\PYZus{}0\PYZus{}images\PYZus{}pair\PYZus{}5}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print(F01)}
+         \PY{c+c1}{\PYZsh{}print(F05)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}57}]:} \PY{n}{C1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{30}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{m} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{F}\PY{o}{=}\PY{n}{F01}
+                 \PY{n}{epsilon} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{4}
+             \PY{k}{if} \PY{n}{m} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                 \PY{n}{F}\PY{o}{=}\PY{n}{F02}
+                 \PY{n}{epsilon} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mi}{2}
+             \PY{k}{if} \PY{n}{m} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{:}
+                 \PY{n}{F}\PY{o}{=}\PY{n}{F03}
+                 \PY{n}{epsilon} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{1.9}
+             \PY{k}{if} \PY{n}{m} \PY{o}{==} \PY{l+m+mi}{3}\PY{p}{:}
+                 \PY{n}{F}\PY{o}{=}\PY{n}{F04}
+                 \PY{n}{epsilon} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{3.5}
+             \PY{k}{if} \PY{n}{m} \PY{o}{==} \PY{l+m+mi}{4}\PY{p}{:}
+                 \PY{n}{F}\PY{o}{=}\PY{n}{F05}
+                 \PY{n}{epsilon} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{l+m+mf}{0.6}
+             \PY{n}{nb}\PY{o}{=}\PY{l+m+mi}{0}
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{100}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{if} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{C}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{T}\PY{p}{,}\PY{n}{F05}\PY{p}{)}\PY{p}{,}\PY{n}{C}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{n}{epsilon}\PY{p}{:}
+                     \PY{n}{nb} \PY{o}{=} \PY{n}{nb} \PY{o}{+}\PY{l+m+mi}{1}
+                     \PY{c+c1}{\PYZsh{}print(C[m][i])}
+                     \PY{n}{C1}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{nb}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{=}\PY{n}{C}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{nb}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{C1}\PY{p}{)}
+         \PY{n}{torch}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{n}{C1}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/C1\PYZus{}onetoone\PYZus{}coordinates\PYZus{}30.pt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+30
+30
+30
+30
+30
+[[[[ 198.18803406  235.29318237    1.        ]
+   [ 697.60070801  495.41763306    1.        ]]
+
+  [[ 151.84648132  269.54605103    1.        ]
+   [ 380.75909424  468.56869507    1.        ]]
+
+  [[ 357.39599609  490.65994263    1.        ]
+   [ 495.80950928  664.60174561    1.        ]]
+
+  [[ 369.07720947  538.50189209    1.        ]
+   [ 937.47790527  633.36682129    1.        ]]
+
+  [[ 484.91217041  233.06341553    1.        ]
+   [ 985.58648682  695.65802002    1.        ]]
+
+  [[ 205.40028381  268.4831543     1.        ]
+   [ 531.67004395  693.41412354    1.        ]]
+
+  [[ 459.82611084  230.65356445    1.        ]
+   [ 496.89382935  418.96643066    1.        ]]
+
+  [[ 221.33522034   71.965271      1.        ]
+   [ 705.9465332    88.23805237    1.        ]]
+
+  [[ 497.26287842  134.50563049    1.        ]
+   [ 473.28646851  617.69476318    1.        ]]
+
+  [[  21.12809944  128.42901611    1.        ]
+   [ 415.98190308  188.4287262     1.        ]]
+
+  [[ 206.3963623   267.87460327    1.        ]
+   [ 938.65197754  634.95770264    1.        ]]
+
+  [[  83.15729523  271.6645813     1.        ]
+   [ 944.33825684  684.21142578    1.        ]]
+
+  [[ 483.38864136  272.31167603    1.        ]
+   [ 381.49868774  467.37036133    1.        ]]
+
+  [[ 146.45269775  277.50549316    1.        ]
+   [ 981.49066162  695.93463135    1.        ]]
+
+  [[ 694.94348145  305.53955078    1.        ]
+   [ 696.79058838  567.09967041    1.        ]]
+
+  [[ 242.27638245   76.69577789    1.        ]
+   [ 386.7593689   541.08520508    1.        ]]
+
+  [[ 496.93566895  133.63276672    1.        ]
+   [ 494.85757446  662.29058838    1.        ]]
+
+  [[ 129.54223633  292.37738037    1.        ]
+   [ 970.96130371  656.89245605    1.        ]]
+
+  [[  14.49116707  136.74688721    1.        ]
+   [ 346.32174683  554.37249756    1.        ]]
+
+  [[ 251.47749329  494.04745483    1.        ]
+   [ 460.35510254  641.48522949    1.        ]]
+
+  [[ 234.86593628  263.96621704    1.        ]
+   [ 987.36138916  695.29266357    1.        ]]
+
+  [[ 452.97116089  221.31295776    1.        ]
+   [ 495.63909912  435.90588379    1.        ]]
+
+  [[  15.82488251  119.57991791    1.        ]
+   [ 692.27313232  559.14703369    1.        ]]
+
+  [[ 703.70092773   85.07041931    1.        ]
+   [ 321.56231689  416.70632935    1.        ]]
+
+  [[ 362.02313232  214.98023987    1.        ]
+   [ 447.65997314  603.74908447    1.        ]]
+
+  [[ 362.76403809  467.64398193    1.        ]
+   [ 686.00915527  721.61920166    1.        ]]
+
+  [[ 138.2835083   305.94644165    1.        ]
+   [ 472.94338989  680.33032227    1.        ]]
+
+  [[ 235.68728638  265.00640869    1.        ]
+   [ 453.69012451  616.56866455    1.        ]]
+
+  [[ 322.2756958   352.46789551    1.        ]
+   [ 555.56109619  694.80975342    1.        ]]
+
+  [[ 138.1552887   308.47613525    1.        ]
+   [ 453.40383911  616.29626465    1.        ]]]
+
+
+ [[[ 130.47540283  158.40396118    1.        ]
+   [ 409.76556396  520.99810791    1.        ]]
+
+  [[ 108.62760162  234.52099609    1.        ]
+   [ 443.29556274  501.90734863    1.        ]]
+
+  [[ 422.72747803  151.22354126    1.        ]
+   [ 558.74383545  245.37191772    1.        ]]
+
+  [[ 399.01663208  149.83183289    1.        ]
+   [ 179.44602966  268.62057495    1.        ]]
+
+  [[  15.71300888  182.50730896    1.        ]
+   [ 566.30450439  445.15588379    1.        ]]
+
+  [[ 125.47621155  171.27677917    1.        ]
+   [ 475.17410278  251.5475769     1.        ]]
+
+  [[ 126.98126221  171.49005127    1.        ]
+   [ 529.16503906  231.12049866    1.        ]]
+
+  [[ 187.89407349  212.69638062    1.        ]
+   [ 482.17938232  224.14215088    1.        ]]
+
+  [[ 150.19422913  171.17591858    1.        ]
+   [ 361.53591919  192.58570862    1.        ]]
+
+  [[ 151.55860901  171.03868103    1.        ]
+   [ 652.25292969  213.37171936    1.        ]]
+
+  [[ 150.3082428   170.83161926    1.        ]
+   [ 147.42001343  227.22518921    1.        ]]
+
+  [[ 329.86230469  193.67098999    1.        ]
+   [ 641.97766113  278.74832153    1.        ]]
+
+  [[ 111.00124359  223.78599548    1.        ]
+   [ 652.230896    213.86224365    1.        ]]
+
+  [[ 519.67822266   35.54102325    1.        ]
+   [ 219.47546387  211.74951172    1.        ]]
+
+  [[ 148.79396057  238.96791077    1.        ]
+   [ 413.60150146  421.52224731    1.        ]]
+
+  [[ 594.77618408  276.01535034    1.        ]
+   [ 255.80606079  450.35128784    1.        ]]
+
+  [[ 657.03961182   50.07921982    1.        ]
+   [ 173.82078552  239.35050964    1.        ]]
+
+  [[ 200.48724365  146.21032715    1.        ]
+   [ 476.04891968  256.21270752    1.        ]]
+
+  [[ 197.21069336   68.48108673    1.        ]
+   [ 265.46258545  169.60298157    1.        ]]
+
+  [[ 138.59434509  151.44876099    1.        ]
+   [ 173.40505981  241.96009827    1.        ]]
+
+  [[ 171.96817017  239.68644714    1.        ]
+   [ 626.27008057  240.37446594    1.        ]]
+
+  [[ 495.70370483   33.65835953    1.        ]
+   [ 648.41827393  147.44735718    1.        ]]
+
+  [[ 656.78613281   49.87220001    1.        ]
+   [ 482.48733521  224.38009644    1.        ]]
+
+  [[  49.54665756  142.13905334    1.        ]
+   [ 471.16586304  223.97366333    1.        ]]
+
+  [[ 476.11468506  272.21981812    1.        ]
+   [ 443.58062744  502.19659424    1.        ]]
+
+  [[ 147.92556763  243.49925232    1.        ]
+   [ 210.45022583  307.64254761    1.        ]]
+
+  [[ 614.7612915   148.25979614    1.        ]
+   [ 620.45019531  275.00979614    1.        ]]
+
+  [[ 427.46231079   41.13563919    1.        ]
+   [ 479.82711792  120.92446136    1.        ]]
+
+  [[ 537.5824585   171.84375       1.        ]
+   [ 252.71800232  450.88903809    1.        ]]
+
+  [[ 526.10760498  165.31027222    1.        ]
+   [ 565.12036133  216.77589417    1.        ]]]
+
+
+ [[[ 113.10680389  122.39828491    1.        ]
+   [ 116.80416107  245.67295837    1.        ]]
+
+  [[ 225.30091858  112.82353973    1.        ]
+   [  61.07416916  220.49749756    1.        ]]
+
+  [[ 239.83990479  148.89768982    1.        ]
+   [ 281.5178833   195.26445007    1.        ]]
+
+  [[ 240.70954895  151.92211914    1.        ]
+   [ 368.82284546  224.86550903    1.        ]]
+
+  [[ 272.96658325   68.59598541    1.        ]
+   [ 374.5904541   196.53640747    1.        ]]
+
+  [[ 189.38731384  150.99423218    1.        ]
+   [ 350.08303833  168.01727295    1.        ]]
+
+  [[ 109.97437286  175.1877594     1.        ]
+   [ 132.80070496  302.69592285    1.        ]]
+
+  [[ 248.06202698  181.3117218     1.        ]
+   [ 236.73976135  293.21966553    1.        ]]
+
+  [[ 281.44058228  174.77236938    1.        ]
+   [ 373.25296021  207.4306488     1.        ]]
+
+  [[ 122.666008    198.0750885     1.        ]
+   [ 365.15261841  277.05389404    1.        ]]
+
+  [[ 120.58472443  185.82278442    1.        ]
+   [ 122.67188263  311.2164917     1.        ]]
+
+  [[ 377.40213013  148.37062073    1.        ]
+   [ 380.02774048  201.49409485    1.        ]]
+
+  [[ 305.39019775  180.49749756    1.        ]
+   [ 127.73322296  290.08963013    1.        ]]
+
+  [[ 255.7482605   130.69033813    1.        ]
+   [ 126.80448151  290.0090332     1.        ]]
+
+  [[ 173.81581116  160.89974976    1.        ]
+   [ 345.08709717  176.37860107    1.        ]]
+
+  [[  57.69732285  190.02374268    1.        ]
+   [ 281.94580078  195.70475769    1.        ]]
+
+  [[ 265.00765991  137.55271912    1.        ]
+   [ 301.57629395  180.57312012    1.        ]]
+
+  [[ 255.576828    134.81776428    1.        ]
+   [ 372.0536499   326.4453125     1.        ]]
+
+  [[ 213.85748291  209.25424194    1.        ]
+   [ 371.81332397  309.27926636    1.        ]]
+
+  [[ 138.06710815  226.96884155    1.        ]
+   [ 369.18795776  224.90101624    1.        ]]
+
+  [[ 305.63601685  183.57897949    1.        ]
+   [ 258.86608887  298.27603149    1.        ]]
+
+  [[ 309.543396     99.41008759    1.        ]
+   [ 376.48678589  264.45605469    1.        ]]
+
+  [[ 409.62298584  196.30271912    1.        ]
+   [ 380.62368774  297.05197144    1.        ]]
+
+  [[ 251.26550293  174.86859131    1.        ]
+   [ 384.06726074  222.35379028    1.        ]]
+
+  [[ 225.66899109  147.00431824    1.        ]
+   [ 136.21975708  221.88119507    1.        ]]
+
+  [[ 301.47927856  168.23530579    1.        ]
+   [ 124.61460114  310.22375488    1.        ]]
+
+  [[ 392.0418396   118.23820496    1.        ]
+   [ 344.96191406  229.60464478    1.        ]]
+
+  [[ 250.64065552  128.53126526    1.        ]
+   [ 375.01287842  283.52490234    1.        ]]
+
+  [[ 408.74365234   37.9567337     1.        ]
+   [ 377.66647339  285.50967407    1.        ]]
+
+  [[ 330.71389771  173.36997986    1.        ]
+   [ 355.82406616  222.27651978    1.        ]]]
+
+
+ [[[ 483.41110229  339.66998291    1.        ]
+   [ 394.19018555  498.20843506    1.        ]]
+
+  [[ 272.17272949  153.73112488    1.        ]
+   [ 446.02288818  553.17016602    1.        ]]
+
+  [[ 346.9284668   228.78164673    1.        ]
+   [ 421.82785034  453.49246216    1.        ]]
+
+  [[ 278.21121216  277.69668579    1.        ]
+   [ 547.78192139  352.80459595    1.        ]]
+
+  [[ 490.65145874  400.22805786    1.        ]
+   [ 348.80316162  546.25189209    1.        ]]
+
+  [[ 352.01306152  291.68630981    1.        ]
+   [ 481.92428589  507.17572021    1.        ]]
+
+  [[ 529.9699707   334.08761597    1.        ]
+   [ 517.22540283  480.29907227    1.        ]]
+
+  [[ 422.94647217  271.3505249     1.        ]
+   [ 526.68548584  560.98339844    1.        ]]
+
+  [[ 433.75360107  176.03596497    1.        ]
+   [ 497.01898193  394.46710205    1.        ]]
+
+  [[ 341.6222229   169.5773468     1.        ]
+   [ 186.36827087  388.78500366    1.        ]]
+
+  [[ 487.71325684  397.85971069    1.        ]
+   [ 442.18191528  551.21099854    1.        ]]
+
+  [[ 453.4838562   202.11552429    1.        ]
+   [ 334.69509888  366.08123779    1.        ]]
+
+  [[ 423.59838867  270.88327026    1.        ]
+   [ 527.828125    562.28961182    1.        ]]
+
+  [[ 507.97973633  228.46113586    1.        ]
+   [ 428.50491333  458.73110962    1.        ]]
+
+  [[ 454.2477417   201.14237976    1.        ]
+   [ 496.66760254  393.32687378    1.        ]]
+
+  [[ 432.97674561  176.38027954    1.        ]
+   [ 554.18695068  515.78973389    1.        ]]
+
+  [[ 470.78179932  325.51278687    1.        ]
+   [ 296.84155273  542.04223633    1.        ]]
+
+  [[ 278.45880127  159.0909729     1.        ]
+   [ 383.50085449  407.28918457    1.        ]]
+
+  [[ 291.0249939   429.97949219    1.        ]
+   [ 376.71478271  570.88989258    1.        ]]
+
+  [[ 281.21575928  347.09512329    1.        ]
+   [ 444.88931274  605.52545166    1.        ]]
+
+  [[ 427.45349121  318.46859741    1.        ]
+   [ 293.65991211  489.00372314    1.        ]]
+
+  [[ 373.6322937   115.27457428    1.        ]
+   [ 412.88815308  327.32766724    1.        ]]
+
+  [[ 357.51437378  358.831604      1.        ]
+   [ 474.93212891  749.99768066    1.        ]]
+
+  [[ 281.33520508  218.65730286    1.        ]
+   [ 546.92810059  352.8664856     1.        ]]
+
+  [[ 280.76449585  241.13777161    1.        ]
+   [ 325.8522644   401.97619629    1.        ]]
+
+  [[ 539.96282959  504.35671997    1.        ]
+   [ 531.44830322  752.98797607    1.        ]]
+
+  [[ 286.20852661  315.87017822    1.        ]
+   [ 467.62930298  419.78625488    1.        ]]
+
+  [[ 389.62139893  159.74710083    1.        ]
+   [ 338.39428711  536.56555176    1.        ]]
+
+  [[ 425.25061035  173.8767395     1.        ]
+   [ 444.87979126  605.29425049    1.        ]]
+
+  [[ 333.13696289  394.88543701    1.        ]
+   [ 300.60906982  593.71514893    1.        ]]]
+
+
+ [[[ 601.35992432  441.88775635    1.        ]
+   [ 675.64758301  445.19906616    1.        ]]
+
+  [[ 554.60162354  508.54888916    1.        ]
+   [ 629.13146973  511.32806396    1.        ]]
+
+  [[ 554.93334961  508.85812378    1.        ]
+   [ 629.62762451  511.64187622    1.        ]]
+
+  [[ 454.7517395   928.59588623    1.        ]
+   [ 189.89691162 1014.15130615    1.        ]]
+
+  [[ 840.25622559  317.82650757    1.        ]
+   [ 589.19299316 1005.62994385    1.        ]]
+
+  [[ 498.96151733  476.3565979     1.        ]
+   [ 573.49230957  479.27325439    1.        ]]
+
+  [[ 845.34338379  312.97497559    1.        ]
+   [1035.53088379  499.80889893    1.        ]]
+
+  [[ 720.81860352  220.49568176    1.        ]
+   [ 793.57342529  224.49382019    1.        ]]
+
+  [[ 230.313797    809.23358154    1.        ]
+   [ 179.11880493  840.0447998     1.        ]]
+
+  [[ 675.13818359  170.09783936    1.        ]
+   [ 748.54278564  174.48254395    1.        ]]
+
+  [[ 917.34429932  262.44229126    1.        ]
+   [ 990.3114624   266.37548828    1.        ]]
+
+  [[ 707.53387451  310.12173462    1.        ]
+   [ 780.2243042   313.99407959    1.        ]]
+
+  [[ 425.3081665   463.00247192    1.        ]
+   [ 499.50115967  465.67999268    1.        ]]
+
+  [[ 683.17858887  287.27728271    1.        ]
+   [ 755.70379639  291.37628174    1.        ]]
+
+  [[1099.97033691 1140.83654785    1.        ]
+   [1320.69348145 1242.49121094    1.        ]]
+
+  [[ 851.75323486  323.10882568    1.        ]
+   [ 964.68927002  852.309021      1.        ]]
+
+  [[ 801.10516357 1107.79907227    1.        ]
+   [1003.2666626  1130.48876953    1.        ]]
+
+  [[ 725.74157715  394.28048706    1.        ]
+   [ 592.31317139 1050.89331055    1.        ]]
+
+  [[ 659.62506104  201.00721741    1.        ]
+   [ 181.53097534 1078.74206543    1.        ]]
+
+  [[1136.6854248  1150.89562988    1.        ]
+   [1309.0201416  1267.73083496    1.        ]]
+
+  [[ 681.49176025  287.78851318    1.        ]
+   [ 755.58648682  292.07095337    1.        ]]
+
+  [[1094.82214355 1105.50097656    1.        ]
+   [1316.34680176 1198.8347168     1.        ]]
+
+  [[ 960.58935547  440.19857788    1.        ]
+   [1012.83483887  442.93499756    1.        ]]
+
+  [[1093.7689209   328.11453247    1.        ]
+   [1320.01538086  996.17340088    1.        ]]
+
+  [[1094.48681641  324.01062012    1.        ]
+   [1316.01220703  989.31439209    1.        ]]
+
+  [[ 563.95690918  520.1885376     1.        ]
+   [ 638.48297119  522.9430542     1.        ]]
+
+  [[1079.89416504 1187.9720459     1.        ]
+   [1322.73669434 1265.40454102    1.        ]]
+
+  [[ 491.97409058  937.03112793    1.        ]
+   [ 585.01324463 1026.19909668    1.        ]]
+
+  [[ 832.34606934  323.59613037    1.        ]
+   [ 906.8515625   327.10809326    1.        ]]
+
+  [[ 562.89251709  524.87145996    1.        ]
+   [ 637.58636475  527.97875977    1.        ]]]]
+
+    \end{Verbatim}
+
+    \hypertarget{add-c0-to-c1-c_computed_40-c0-c1}{%
+\subsubsection{Add C0 to C1: C\_computed\_40 = C0 +
+C1}\label{add-c0-to-c1-c_computed_40-c0-c1}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{C1} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/C1\PYZus{}onetoone\PYZus{}coordinates\PYZus{}30.pt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+        \PY{n}{C0} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/C0\PYZus{}manual\PYZus{}coordinates\PYZus{}100.pt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} 
+        \PY{n}{C\PYZus{}computed\PYZus{}40} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{,}\PY{l+m+mi}{40}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{C0}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} = 10}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{C1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} = 30}
+        
+        \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+            \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{40}\PY{p}{)}\PY{p}{:}
+                \PY{k}{if} \PY{n}{i} \PY{o}{\PYZlt{}} \PY{l+m+mi}{10}\PY{p}{:}
+                    \PY{n}{C\PYZus{}computed\PYZus{}40}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{C0}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                    \PY{n}{C\PYZus{}computed\PYZus{}40}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{C0}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                    \PY{n}{C\PYZus{}computed\PYZus{}40}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+                    \PY{n}{C\PYZus{}computed\PYZus{}40}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{C0}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                    \PY{n}{C\PYZus{}computed\PYZus{}40}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{C0}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                    \PY{n}{C\PYZus{}computed\PYZus{}40}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+        
+                \PY{k}{else}\PY{p}{:}
+                    \PY{n}{C\PYZus{}computed\PYZus{}40}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{C1}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                    \PY{n}{C\PYZus{}computed\PYZus{}40}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{C1}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                    \PY{n}{C\PYZus{}computed\PYZus{}40}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+                    \PY{n}{C\PYZus{}computed\PYZus{}40}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]} \PY{o}{=} \PY{n}{C1}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                    \PY{n}{C\PYZus{}computed\PYZus{}40}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]} \PY{o}{=} \PY{n}{C1}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{o}{\PYZhy{}}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                    \PY{n}{C\PYZus{}computed\PYZus{}40}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{1}
+        
+        \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{C\PYZus{}computed\PYZus{}40}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)} \PY{c+c1}{\PYZsh{} = 40}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{C\PYZus{}computed\PYZus{}40}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{39}\PY{p}{]}\PY{p}{)} 
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{C1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{29}\PY{p}{]}\PY{p}{)} 
+        \PY{c+c1}{\PYZsh{}torch.save(C\PYZus{}computed\PYZus{}40, \PYZdq{}results/C\PYZus{}augmented\PYZus{}manual\PYZus{}onetoone\PYZus{}and\PYZus{}coordinates\PYZus{}40.pt\PYZdq{})}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+10
+30
+40
+[[138.1552887  308.47613525   1.        ]
+ [453.40383911 616.29626465   1.        ]]
+[[138.1552887  308.47613525   1.        ]
+ [453.40383911 616.29626465   1.        ]]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{C\PYZus{}40} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/C\PYZus{}augmented\PYZus{}manual\PYZus{}onetoone\PYZus{}and\PYZus{}coordinates\PYZus{}40.pt}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)} 
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{C\PYZus{}40}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{} Should be the same as: \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{c+c1}{\PYZsh{}print(C0[0][1][0][0])}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{C0}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{C\PYZus{}40}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{10}\PY{p}{]}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{} Should be the same as: \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n+nb}{print}\PY{p}{(}\PY{n}{C1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[[ 16. 400.   1.]
+ [ 59. 400.   1.]]
+------ Should be the same as: --------
+[[ 16. 400.   1.]
+ [ 59. 400.   1.]]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+[[198.18803406 235.29318237   1.        ]
+ [697.60070801 495.41763306   1.        ]]
+------ Should be the same as: --------
+[[198.18803406 235.29318237   1.        ]
+ [697.60070801 495.41763306   1.        ]]
+
+    \end{Verbatim}
+
+    \hypertarget{re-estimate-f1-based-on-c_40}{%
+\subsubsection{Re estimate F1 based on
+C\_40}\label{re-estimate-f1-based-on-c_40}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{W1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{40}\PY{p}{,} \PY{l+m+mi}{9}\PY{p}{)}\PY{p}{)}
+         
+         \PY{k}{for} \PY{n}{m} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{40}\PY{p}{)}\PY{p}{:}
+                 \PY{c+c1}{\PYZsh{}W1[i, 0]= C\PYZus{}40[m][i][0][0][0]*C\PYZus{}40[m][i][0][1]}
+                 \PY{n}{W1}\PY{p}{[}\PY{n}{j}\PY{p}{,} \PY{l+m+mi}{0}\PY{p}{]}\PY{o}{=} \PY{n}{C\PYZus{}40}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{n}{C\PYZus{}40}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{W1}\PY{p}{[}\PY{n}{j}\PY{p}{,} \PY{l+m+mi}{1}\PY{p}{]}\PY{o}{=} \PY{n}{C\PYZus{}40}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{o}{*}\PY{n}{C\PYZus{}40}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{n}{W1}\PY{p}{[}\PY{n}{j}\PY{p}{,} \PY{l+m+mi}{2}\PY{p}{]}\PY{o}{=} \PY{n}{C\PYZus{}40}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{W1}\PY{p}{[}\PY{n}{j}\PY{p}{,} \PY{l+m+mi}{3}\PY{p}{]}\PY{o}{=} \PY{n}{C\PYZus{}40}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{*}\PY{n}{C\PYZus{}40}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{W1}\PY{p}{[}\PY{n}{j}\PY{p}{,} \PY{l+m+mi}{4}\PY{p}{]}\PY{o}{=} \PY{n}{C\PYZus{}40}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{*}\PY{n}{C\PYZus{}40}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{n}{W1}\PY{p}{[}\PY{n}{j}\PY{p}{,} \PY{l+m+mi}{5}\PY{p}{]}\PY{o}{=} \PY{n}{C\PYZus{}40}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{n}{W1}\PY{p}{[}\PY{n}{j}\PY{p}{,} \PY{l+m+mi}{6}\PY{p}{]}\PY{o}{=} \PY{n}{C\PYZus{}40}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{W1}\PY{p}{[}\PY{n}{j}\PY{p}{,} \PY{l+m+mi}{7}\PY{p}{]}\PY{o}{=} \PY{n}{C\PYZus{}40}\PY{p}{[}\PY{n}{m}\PY{p}{]}\PY{p}{[}\PY{n}{j}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{n}{W1}\PY{p}{[}\PY{n}{j}\PY{p}{,}\PY{l+m+mi}{8}\PY{p}{]}\PY{o}{=}\PY{l+m+mi}{1}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Image }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{: W matrix}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{W1}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{} \PYZus{}\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         
+             \PY{c+c1}{\PYZsh{} SVD}
+             \PY{n}{u1}\PY{p}{,} \PY{n}{s1}\PY{p}{,} \PY{n}{vh1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{linalg}\PY{o}{.}\PY{n}{svd}\PY{p}{(}\PY{n}{W1}\PY{p}{,} \PY{n}{full\PYZus{}matrices}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+             \PY{c+c1}{\PYZsh{} last row of V = last column V transposed}
+         
+             \PY{n}{f1} \PY{o}{=} \PY{n}{vh1}\PY{p}{[}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{f = last column V transposed }\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{f1}\PY{p}{)}
+         
+             \PY{n}{F1} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{zeros}\PY{p}{(}\PY{p}{(}\PY{l+m+mi}{3}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{)}
+         
+             \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+                 \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{3}\PY{p}{)}\PY{p}{:}
+                     \PY{n}{F1}\PY{p}{[}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{]}\PY{o}{=}\PY{n}{f1}\PY{p}{[}\PY{n}{i}\PY{o}{*}\PY{l+m+mi}{3}\PY{o}{+}\PY{n}{j}\PY{p}{]}
+         
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{Image }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{: Fundamental Matrix F1}\PY{l+s+se}{\PYZbs{}n}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{F1}\PY{p}{)}
+             \PY{n}{torch}\PY{o}{.}\PY{n}{save}\PY{p}{(}\PY{n}{F1}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/fundamental\PYZus{}matrix\PYZus{}1\PYZus{}images\PYZus{}pair\PYZus{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{m}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+Image 1: W matrix
+
+40
+\_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_
+
+f = last column V transposed 
+
+[ 0.00000068  0.0000006  -0.00083847  0.00000148  0.00000339 -0.00287126
+ -0.00078598 -0.00088903  0.99999482]
+
+Image 1: Fundamental Matrix F1
+
+[[ 0.00000068  0.0000006  -0.00083847]
+ [ 0.00000148  0.00000339 -0.00287126]
+ [-0.00078598 -0.00088903  0.99999482]]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+Image 2: W matrix
+
+40
+\_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_
+
+f = last column V transposed 
+
+[ 0.00000097  0.00000165 -0.00114619  0.00000278  0.0000063  -0.00363308
+ -0.00084011 -0.00165301  0.99999102]
+
+Image 2: Fundamental Matrix F1
+
+[[ 0.00000097  0.00000165 -0.00114619]
+ [ 0.00000278  0.0000063  -0.00363308]
+ [-0.00084011 -0.00165301  0.99999102]]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+Image 3: W matrix
+
+40
+\_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_
+
+f = last column V transposed 
+
+[-0.0000024  -0.00000516  0.00181078 -0.00000749 -0.00000752  0.00399086
+  0.00173317  0.00223988 -0.99998639]
+
+Image 3: Fundamental Matrix F1
+
+[[-0.0000024  -0.00000516  0.00181078]
+ [-0.00000749 -0.00000752  0.00399086]
+ [ 0.00173317  0.00223988 -0.99998639]]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+Image 4: W matrix
+
+40
+\_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_
+
+f = last column V transposed 
+
+[ 0.00000015 -0.00000325  0.0015871   0.00000036 -0.00000281  0.00165063
+ -0.00003527  0.00185247 -0.99999566]
+
+Image 4: Fundamental Matrix F1
+
+[[ 0.00000015 -0.00000325  0.0015871 ]
+ [ 0.00000036 -0.00000281  0.00165063]
+ [-0.00003527  0.00185247 -0.99999566]]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+Image 5: W matrix
+
+40
+\_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_ \_\_
+
+f = last column V transposed 
+
+[ 0.00000049  0.00000079 -0.0009505   0.00000002  0.00000028 -0.0003891
+ -0.00054646 -0.00076541  0.99999903]
+
+Image 5: Fundamental Matrix F1
+
+[[ 0.00000049  0.00000079 -0.0009505 ]
+ [ 0.00000002  0.00000028 -0.0003891 ]
+ [-0.00054646 -0.00076541  0.99999903]]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{n}{F01} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/fundamental\PYZus{}matrix\PYZus{}0\PYZus{}images\PYZus{}pair\PYZus{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F01}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{F01}\PY{p}{)}
+         
+         \PY{n}{F11} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/fundamental\PYZus{}matrix\PYZus{}1\PYZus{}images\PYZus{}pair\PYZus{}1}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{F11}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{F11}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+F01
+[[-0.00000012  0.00004452 -0.02110133]
+ [-0.00004641 -0.00000091  0.01201702]
+ [ 0.02204132 -0.00950205 -0.99941694]]
+F11
+[[ 0.00000068  0.0000006  -0.00083847]
+ [ 0.00000148  0.00000339 -0.00287126]
+ [-0.00078598 -0.00088903  0.99999482]]
+
+    \end{Verbatim}
+
+    \hypertarget{epipolar-lines}{%
+\subsection{Epipolar lines}\label{epipolar-lines}}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{X1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{}print(F01)}
+         
+         \PY{n}{l2} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{F01}\PY{p}{,} \PY{n}{X1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{l2}\PY{p}{)}
+         
+         \PY{n}{x1} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{l2}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{/}\PY{n}{l2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{y1} \PY{o}{=} \PY{l+m+mi}{0}
+         \PY{n}{y2} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{l2}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{/}\PY{n}{l2}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{x2} \PY{o}{=} \PY{l+m+mi}{0}
+         
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{X1}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} first image, third point}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{X2}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)} \PY{c+c1}{\PYZsh{} first image, third point}
+         \PY{c+c1}{\PYZsh{}print(C\PYZus{}40[0][2][0])}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[59, 480, 1]
+[ 0.00025916  0.00883987 -4.25996278]
+[59, 480, 1]
+[97, 480, 1]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}40}]:} \PY{k}{for} \PY{n}{idx} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{query\PYZus{}num}\PY{o}{+}\PY{n}{image\PYZus{}num}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{idx} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{index\PYZus{}point\PYZus{}selected} \PY{o}{=} \PY{l+m+mi}{8}  
+             \PY{k}{if} \PY{n}{idx} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                 \PY{n}{index\PYZus{}point\PYZus{}selected} \PY{o}{=} \PY{l+m+mi}{8}
+             \PY{k}{if} \PY{n}{idx} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{:}
+                 \PY{n}{index\PYZus{}point\PYZus{}selected} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{if} \PY{n}{idx} \PY{o}{==} \PY{l+m+mi}{3}\PY{p}{:}
+                 \PY{n}{index\PYZus{}point\PYZus{}selected} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{if} \PY{n}{idx} \PY{o}{==} \PY{l+m+mi}{4}\PY{p}{:}
+                 \PY{n}{index\PYZus{}point\PYZus{}selected} \PY{o}{=} \PY{l+m+mi}{1}
+                 
+             \PY{k}{if} \PY{n}{idx} \PY{o}{\PYZlt{}} \PY{n}{query\PYZus{}num}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{IMAGE 1}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{img\PYZus{}dir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{query\PYZus{}path}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{image}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{.png}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{i} \PY{o}{=} \PY{n}{idx}
+                 \PY{c+c1}{\PYZsh{}F0 = torch.load(\PYZdq{}results/fundamental\PYZus{}matrix\PYZus{}0\PYZus{}images\PYZus{}pair\PYZus{}\PYZob{}\PYZcb{}\PYZdq{}.format(idx+1))}
+                 \PY{c+c1}{\PYZsh{}F1 = torch.load(\PYZdq{}results/fundamental\PYZus{}matrix\PYZus{}1\PYZus{}images\PYZus{}pair\PYZus{}\PYZob{}\PYZcb{}\PYZdq{}.format(idx+1))}
+                 \PY{n}{X} \PY{o}{=} \PY{n}{X1}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{index\PYZus{}point\PYZus{}selected}\PY{p}{]}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Point number }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{index\PYZus{}point\PYZus{}selected}\PY{p}{)}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Coordinates point selected: (}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{n}{img\PYZus{}dir}\PY{p}{)}
+                 \PY{n}{img}\PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,}\PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2RGB}\PY{p}{)}
+                 \PY{n}{cv2}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{n}{img}\PY{p}{,}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{255}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{IMAGE 2}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{query\PYZus{}num}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{img\PYZus{}dir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{image\PYZus{}path}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{image}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{.png}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{query\PYZus{}num}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{F0} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/fundamental\PYZus{}matrix\PYZus{}0\PYZus{}images\PYZus{}pair\PYZus{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{query\PYZus{}num}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{F1} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/fundamental\PYZus{}matrix\PYZus{}1\PYZus{}images\PYZus{}pair\PYZus{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{query\PYZus{}num}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{i} \PY{o}{=} \PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{query\PYZus{}num}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+                 \PY{n}{X} \PY{o}{=} \PY{n}{X1}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{index\PYZus{}point\PYZus{}selected}\PY{p}{]}
+                 \PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{n}{img\PYZus{}dir}\PY{p}{)}
+                 \PY{n}{img}\PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,}\PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2RGB}\PY{p}{)}
+         
+                 \PY{n}{l20} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{F0}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{l20}\PY{p}{)}
+         
+                 \PY{n}{x10} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{l20}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{/}\PY{n}{l20}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{y10} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{n}{y20} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{l20}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{/}\PY{n}{l20}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{n}{x20} \PY{o}{=} \PY{l+m+mi}{0}
+         
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+                 \PY{n}{cv2}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{n}{img}\PY{p}{,}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{255}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         
+                 \PY{n}{x\PYZus{}10} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{n}{y\PYZus{}10} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{l20}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{l20}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{x\PYZus{}20} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{l20}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{l20}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{y\PYZus{}20} \PY{o}{=} \PY{l+m+mi}{0}
+         
+                 \PY{n}{cv2}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{n}{img}\PY{p}{,}\PY{p}{(}\PY{n}{x\PYZus{}10}\PY{p}{,}\PY{n}{y\PYZus{}10}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{n}{x\PYZus{}20}\PY{p}{,}\PY{n}{y\PYZus{}20}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{255}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}
+         
+         
+                 \PY{n}{l21} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{F1}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{l21}\PY{p}{)}
+         
+                 \PY{n}{x11} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{l21}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{/}\PY{n}{l21}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{y11} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{n}{y21} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{l21}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{/}\PY{n}{l21}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{n}{x21} \PY{o}{=} \PY{l+m+mi}{0}
+         
+                 \PY{n}{x\PYZus{}11} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{n}{y\PYZus{}11} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{l21}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{l21}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{x\PYZus{}21} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{l21}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{l21}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{y\PYZus{}21} \PY{o}{=} \PY{l+m+mi}{0}
+         
+                 \PY{n}{cv2}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{n}{img}\PY{p}{,}\PY{p}{(}\PY{n}{x\PYZus{}11}\PY{p}{,}\PY{n}{y\PYZus{}11}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{n}{x\PYZus{}21}\PY{p}{,}\PY{n}{y\PYZus{}21}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{255}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+                 
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} img = cv2.cvtColor(img, cv2.COLOR\PYZus{}RGB2BGR)}
+         
+             \PY{k}{if} \PY{n}{idx} \PY{o}{\PYZlt{}} \PY{n}{query\PYZus{}num}\PY{p}{:}
+                 \PY{n}{cv2}\PY{o}{.}\PY{n}{imwrite}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pointinimage1\PYZus{}epipolarin2/epipolar\PYZus{}line\PYZus{}image\PYZus{}1}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.png}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n}{img}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{}   cv2.imwrite(\PYZsq{}results/epipolar\PYZus{}line\PYZus{}image\PYZus{}1\PYZob{}\PYZcb{}.png\PYZsq{}.format(idx+1),img)}
+             \PY{k}{else}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{}   cv2.imwrite(\PYZsq{}results/epipolar\PYZus{}line\PYZus{}image\PYZus{}2\PYZob{}\PYZcb{}.png\PYZsq{}.format(idx+1\PYZhy{}query\PYZus{}num),img)}
+                 \PY{n}{cv2}\PY{o}{.}\PY{n}{imwrite}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pointinimage1\PYZus{}epipolarin2/epipolar\PYZus{}line\PYZus{}image\PYZus{}2}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.png}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{query\PYZus{}num}\PY{p}{)}\PY{p}{,}\PY{n}{img}\PY{p}{)}
+                 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+IMAGE 11
+Point number 8
+Coordinates point selected: (781,528)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+IMAGE 12
+Point number 8
+Coordinates point selected: (354,323)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+IMAGE 13
+Point number 1
+Coordinates point selected: (254,294)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+IMAGE 14
+Point number 1
+Coordinates point selected: (380,113)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+IMAGE 15
+Point number 1
+Coordinates point selected: (512,464)
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+IMAGE 21
+0
+[-0.00329697  0.01090882 -4.44757557]
+[16, 400, 1]
+[-0.00058873 -0.00149308  0.63180899]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_11.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+IMAGE 22
+1
+[-0.00594179  0.00826367  0.30150508]
+[334, 180, 1]
+[-0.00052443 -0.00157115  0.42185156]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_13.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+IMAGE 23
+2
+[-0.02769516 -0.21445175 70.66593779]
+[254, 294, 1]
+[-0.00031459 -0.00012124  0.09876538]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_15.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+IMAGE 24
+3
+[-0.06578369 -0.02917006 26.36623826]
+[380, 113, 1]
+[ 0.00127567  0.00146995 -0.80406961]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_17.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+IMAGE 25
+4
+[-0.00390925 -0.02498171 13.16303792]
+[512, 464, 1]
+[-0.00033388 -0.00024949  0.36506283]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_42_19.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{k}{for} \PY{n}{idx} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n}{query\PYZus{}num}\PY{o}{+}\PY{n}{image\PYZus{}num}\PY{p}{)}\PY{p}{:}
+             \PY{k}{if} \PY{n}{idx} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                 \PY{n}{index\PYZus{}point\PYZus{}selected} \PY{o}{=} \PY{l+m+mi}{8}  
+             \PY{k}{if} \PY{n}{idx} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                 \PY{n}{index\PYZus{}point\PYZus{}selected} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{if} \PY{n}{idx} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{:}
+                 \PY{n}{index\PYZus{}point\PYZus{}selected} \PY{o}{=} \PY{l+m+mi}{3}
+             \PY{k}{if} \PY{n}{idx} \PY{o}{==} \PY{l+m+mi}{3}\PY{p}{:}
+                 \PY{n}{index\PYZus{}point\PYZus{}selected} \PY{o}{=} \PY{l+m+mi}{1}
+             \PY{k}{if} \PY{n}{idx} \PY{o}{==} \PY{l+m+mi}{4}\PY{p}{:}
+                 \PY{n}{index\PYZus{}point\PYZus{}selected} \PY{o}{=} \PY{l+m+mi}{1}
+                 
+             \PY{k}{if} \PY{n}{idx} \PY{o}{\PYZlt{}} \PY{n}{query\PYZus{}num}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{IMAGE 1}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{img\PYZus{}dir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{query\PYZus{}path}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{image}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{.png}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{i} \PY{o}{=} \PY{n}{idx}
+                 \PY{c+c1}{\PYZsh{}F0 = torch.load(\PYZdq{}results/fundamental\PYZus{}matrix\PYZus{}0\PYZus{}images\PYZus{}pair\PYZus{}\PYZob{}\PYZcb{}\PYZdq{}.format(idx+1))}
+                 \PY{c+c1}{\PYZsh{}F1 = torch.load(\PYZdq{}results/fundamental\PYZus{}matrix\PYZus{}1\PYZus{}images\PYZus{}pair\PYZus{}\PYZob{}\PYZcb{}\PYZdq{}.format(idx+1))}
+                 \PY{n}{X} \PY{o}{=} \PY{n}{X2}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{index\PYZus{}point\PYZus{}selected}\PY{p}{]}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Point number }\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{index\PYZus{}point\PYZus{}selected}\PY{p}{)}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Coordinates point selected: (}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{,}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{)}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{n}{img\PYZus{}dir}\PY{p}{)}
+                 \PY{n}{img}\PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,}\PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2RGB}\PY{p}{)}        
+                 
+                 \PY{n}{l20} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{F0}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{l20}\PY{p}{)}
+         
+                 \PY{n}{x10} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{l20}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{/}\PY{n}{l20}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{y10} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{n}{y20} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{l20}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{/}\PY{n}{l20}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{n}{x20} \PY{o}{=} \PY{l+m+mi}{0}
+         
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{X}\PY{p}{)}
+                 \PY{n}{cv2}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{n}{img}\PY{p}{,}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{255}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         
+                 \PY{n}{x\PYZus{}10} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{n}{y\PYZus{}10} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{l20}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{l20}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{x\PYZus{}20} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{l20}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{l20}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{y\PYZus{}20} \PY{o}{=} \PY{l+m+mi}{0}
+         
+                 \PY{n}{cv2}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{n}{img}\PY{p}{,}\PY{p}{(}\PY{n}{x\PYZus{}10}\PY{p}{,}\PY{n}{y\PYZus{}10}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{n}{x\PYZus{}20}\PY{p}{,}\PY{n}{y\PYZus{}20}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{255}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{10}\PY{p}{)}
+         
+         
+                 \PY{n}{l21} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{dot}\PY{p}{(}\PY{n}{F1}\PY{p}{,} \PY{n}{X}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{l21}\PY{p}{)}
+         
+                 \PY{n}{x11} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{l21}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{/}\PY{n}{l21}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                 \PY{n}{y11} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{n}{y21} \PY{o}{=} \PY{o}{\PYZhy{}}\PY{n}{l21}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{/}\PY{n}{l21}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                 \PY{n}{x21} \PY{o}{=} \PY{l+m+mi}{0}
+         
+                 \PY{n}{x\PYZus{}11} \PY{o}{=} \PY{l+m+mi}{0}
+                 \PY{n}{y\PYZus{}11} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{l21}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{l21}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{x\PYZus{}21} \PY{o}{=} \PY{n+nb}{int}\PY{p}{(}\PY{p}{(}\PY{o}{\PYZhy{}}\PY{n}{l21}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{p}{)}\PY{o}{/}\PY{p}{(}\PY{n}{l21}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{y\PYZus{}21} \PY{o}{=} \PY{l+m+mi}{0}
+         
+                 \PY{n}{cv2}\PY{o}{.}\PY{n}{line}\PY{p}{(}\PY{n}{img}\PY{p}{,}\PY{p}{(}\PY{n}{x\PYZus{}11}\PY{p}{,}\PY{n}{y\PYZus{}11}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{n}{x\PYZus{}21}\PY{p}{,}\PY{n}{y\PYZus{}21}\PY{p}{)}\PY{p}{,}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{255}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{)}
+         
+             \PY{k}{else}\PY{p}{:}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}\PYZus{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{IMAGE 2}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{query\PYZus{}num}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{img\PYZus{}dir} \PY{o}{=} \PY{n}{os}\PY{o}{.}\PY{n}{path}\PY{o}{.}\PY{n}{join}\PY{p}{(}\PY{n}{image\PYZus{}path}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{image}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{.png}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{query\PYZus{}num}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{F0} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/fundamental\PYZus{}matrix\PYZus{}0\PYZus{}images\PYZus{}pair\PYZus{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{query\PYZus{}num}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{F1} \PY{o}{=} \PY{n}{torch}\PY{o}{.}\PY{n}{load}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{results/fundamental\PYZus{}matrix\PYZus{}1\PYZus{}images\PYZus{}pair\PYZus{}}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s2}{\PYZdq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{query\PYZus{}num}\PY{p}{)}\PY{p}{)}
+                 \PY{n}{i} \PY{o}{=} \PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{query\PYZus{}num}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}
+                 \PY{n+nb}{print}\PY{p}{(}\PY{n}{i}\PY{p}{)}
+                 \PY{n}{X} \PY{o}{=} \PY{n}{X2}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{index\PYZus{}point\PYZus{}selected}\PY{p}{]}
+                 \PY{n}{image} \PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{imread}\PY{p}{(}\PY{n}{img\PYZus{}dir}\PY{p}{)}
+                 \PY{n}{img}\PY{o}{=} \PY{n}{cv2}\PY{o}{.}\PY{n}{cvtColor}\PY{p}{(}\PY{n}{image}\PY{p}{,}\PY{n}{cv2}\PY{o}{.}\PY{n}{COLOR\PYZus{}BGR2RGB}\PY{p}{)}
+                 \PY{n}{cv2}\PY{o}{.}\PY{n}{circle}\PY{p}{(}\PY{n}{img}\PY{p}{,}\PY{p}{(}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{X}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{)}\PY{p}{,} \PY{l+m+mi}{10}\PY{p}{,} \PY{p}{(}\PY{l+m+mi}{255}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{)}\PY{p}{,} \PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{)}
+         
+         
+             \PY{n}{plt}\PY{o}{.}\PY{n}{imshow}\PY{p}{(}\PY{n}{img}\PY{p}{)}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+            \PY{c+c1}{\PYZsh{} img = cv2.cvtColor(img, cv2.COLOR\PYZus{}RGB2BGR)}
+         
+             \PY{k}{if} \PY{n}{idx} \PY{o}{\PYZlt{}} \PY{n}{query\PYZus{}num}\PY{p}{:}
+                 \PY{n}{cv2}\PY{o}{.}\PY{n}{imwrite}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pointinimage2\PYZus{}epipolarin1/epipolar\PYZus{}line\PYZus{}image\PYZus{}1}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.png}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{p}{)}\PY{p}{,}\PY{n}{img}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{}   cv2.imwrite(\PYZsq{}results/epipolar\PYZus{}line\PYZus{}image\PYZus{}1\PYZob{}\PYZcb{}.png\PYZsq{}.format(idx+1),img)}
+             \PY{k}{else}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{}   cv2.imwrite(\PYZsq{}results/epipolar\PYZus{}line\PYZus{}image\PYZus{}2\PYZob{}\PYZcb{}.png\PYZsq{}.format(idx+1\PYZhy{}query\PYZus{}num),img)}
+                 \PY{n}{cv2}\PY{o}{.}\PY{n}{imwrite}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pointinimage2\PYZus{}epipolarin1/epipolar\PYZus{}line\PYZus{}image\PYZus{}2}\PY{l+s+si}{\PYZob{}\PYZcb{}}\PY{l+s+s1}{.png}\PY{l+s+s1}{\PYZsq{}}\PY{o}{.}\PY{n}{format}\PY{p}{(}\PY{n}{idx}\PY{o}{+}\PY{l+m+mi}{1}\PY{o}{\PYZhy{}}\PY{n}{query\PYZus{}num}\PY{p}{)}\PY{p}{,}\PY{n}{img}\PY{p}{)}
+                 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+IMAGE 11
+Point number 8
+Coordinates point selected: (782,530)
+[-0.00350628 -0.02671571 16.57840351]
+[782, 530, 1]
+[-0.00014965 -0.00022519  0.16700254]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+IMAGE 12
+Point number 1
+Coordinates point selected: (365,180)
+[-0.00561369 -0.02401337  5.67670547]
+[365, 180, 1]
+[-0.00062985 -0.00033119  0.66276857]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+IMAGE 13
+Point number 3
+Coordinates point selected: (426,125)
+[-0.00594117 -0.02439828  4.8625428 ]
+[426, 125, 1]
+[-0.00064336 -0.000345    0.67153233]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+IMAGE 14
+Point number 1
+Coordinates point selected: (415,109)
+[-0.00603727 -0.02432633  4.42146452]
+[415, 109, 1]
+[-0.00066137 -0.00034966  0.68978992]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+IMAGE 15
+Point number 1
+Coordinates point selected: (583,469)
+[-0.00387725 -0.02543648 13.78089353]
+[583, 469, 1]
+[-0.00029518 -0.00024651  0.32243739]
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+IMAGE 21
+0
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_11.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+IMAGE 22
+1
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_13.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+IMAGE 23
+2
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_15.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+IMAGE 24
+3
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_17.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_\_
+IMAGE 25
+4
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_43_19.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
